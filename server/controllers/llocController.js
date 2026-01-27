@@ -83,7 +83,7 @@ const createLloc = async (req, res, next) => {
         }
 
         // Si hi ha imatge, obtenir la ruta
-        const imatgePortada = req.file ? `/uploads/${req.file.filename}` : null;
+        const imatgePortada = req.file ? req.file.path : null;
 
         // Parsear puntsInteres si ve com a string (des d'un FormData)
         let parsedPuntsInteres = [];
@@ -162,7 +162,7 @@ const updateLloc = async (req, res, next) => {
         lloc.ordre = ordre !== undefined ? ordre : lloc.ordre;
 
         if (req.file) {
-            lloc.imatgePortada = `/uploads/${req.file.filename}`;
+            lloc.imatgePortada = req.file ? req.file.path : null;
         }
 
         // Actualitzar puntsInteres si ve
@@ -205,7 +205,7 @@ const addImatgesGaleria = async (req, res, next) => {
 
         // Afegir les noves imatges a la galeria
         if (req.files && req.files.length > 0) {
-            const novaImatges = req.files.map(file => `/uploads/${file.filename}`);
+            const novaImatges = req.files.map(file => file.path);
             lloc.galeriaImatges.push(...novaImatges);
             await lloc.save();
         }

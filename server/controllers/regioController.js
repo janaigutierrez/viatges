@@ -42,15 +42,14 @@ const createRegio = async (req, res, next) => {
     try {
         const { nom, slug, ordre } = req.body;
 
-        // Validar camps obligatoris
         if (!nom || !slug) {
             return res.status(400).json({
                 error: 'Nom i slug són obligatoris'
             });
         }
 
-        // Si hi ha imatge, obtenir la ruta
-        const imatgePortada = req.file ? `/uploads/${req.file.filename}` : null;
+        // Si hi ha imatge, obtenir la URL completa de Cloudinary
+        const imatgePortada = req.file ? req.file.path : null; // req.file.path té la URL completa!
 
         const regio = await Regio.create({
             nom,
@@ -61,10 +60,6 @@ const createRegio = async (req, res, next) => {
 
         res.status(201).json(regio);
     } catch (error) {
-        // Si hi ha error i s'ha pujat imatge, eliminar-la
-        if (req.file) {
-            await fs.unlink(path.join('uploads', req.file.filename)).catch(() => { });
-        }
         next(error);
     }
 };
@@ -79,19 +74,20 @@ const updateRegio = async (req, res, next) => {
         const regio = await Regio.findById(req.params.id);
 
         if (!regio) {
-            // Si hi ha nova imatge i no existeix la regió, eliminar-la
-            if (req.file) {
-                await fs.unlink(path.join('uploads', req.file.filename)).catch(() => { });
-            }
             return res.status(404).json({
                 error: 'Regió no trobada'
             });
         }
 
-        // Si hi ha nova imatge, eliminar l'anterior
+        // Si hi ha nova imatge, eliminar l'anterior de Cloudinary
         if (req.file && regio.imatgePortada) {
-            const oldImagePath = path.join('.', regio.imatgePortada);
-            await fs.unlink(oldImagePath).catch(() => { });
+            // Extreure public_id de la URL antiga
+            const urlParts = regio.imatgePortada.split('/');
+            const publicIdWithExt = urlParts[urlParts.length - 1];
+            const publicId = publicIdWithExt.split('.')[0];
+            const folder = urlParts[urlParts.length - 2];
+
+            await cloudinary.uploader.destroy(`${folder}/${publicId}`).catch(() => { });
         }
 
         // Actualitzar camps
@@ -100,17 +96,13 @@ const updateRegio = async (req, res, next) => {
         regio.ordre = ordre !== undefined ? ordre : regio.ordre;
 
         if (req.file) {
-            regio.imatgePortada = `/uploads/${req.file.filename}`;
+            regio.imatgePortada = req.file.path; // URL completa de Cloudinary
         }
 
         await regio.save();
 
         res.json(regio);
     } catch (error) {
-        // Si hi ha error i s'ha pujat nova imatge, eliminar-la
-        if (req.file) {
-            await fs.unlink(path.join('uploads', req.file.filename)).catch(() => { });
-        }
         next(error);
     }
 };
