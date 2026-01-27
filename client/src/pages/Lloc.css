@@ -1,0 +1,196 @@
+/* src/pages/Lloc.css */
+.lloc-page {
+    min-height: 100vh;
+    background: #f8f9fa;
+}
+
+.lloc-hero {
+    height: 400px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+.lloc-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.6));
+    display: flex;
+    align-items: flex-end;
+    padding: 40px 20px;
+}
+
+.lloc-hero-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+    color: white;
+}
+
+.breadcrumb {
+    display: inline-block;
+    color: white;
+    text-decoration: none;
+    margin-bottom: 15px;
+    opacity: 0.9;
+    transition: opacity 0.3s;
+}
+
+.breadcrumb:hover {
+    opacity: 1;
+}
+
+.lloc-hero h1 {
+    margin: 0;
+    font-size: 48px;
+    font-weight: 700;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.lloc-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.lloc-content-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.lloc-content-header h2 {
+    margin: 0;
+    font-size: 32px;
+    color: #333;
+}
+
+.btn-edit-main {
+    padding: 12px 24px;
+    background: #667eea;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-edit-main:hover {
+    background: #5568d3;
+    transform: translateY(-2px);
+}
+
+.lloc-section {
+    margin-bottom: 50px;
+}
+
+.lloc-section h3 {
+    font-size: 24px;
+    color: #333;
+    margin: 0 0 20px 0;
+    padding-bottom: 10px;
+    border-bottom: 3px solid #667eea;
+}
+
+.lloc-description {
+    font-size: 18px;
+    line-height: 1.8;
+    color: #555;
+    white-space: pre-wrap;
+}
+
+.punts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.punt-card {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.punt-card h4 {
+    margin: 0 0 10px 0;
+    font-size: 18px;
+    color: #333;
+}
+
+.punt-card p {
+    margin: 0;
+    color: #666;
+    line-height: 1.6;
+}
+
+.galeria-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.galeria-item {
+    aspect-ratio: 4/3;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+.galeria-item:hover {
+    transform: scale(1.05);
+}
+
+.galeria-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.error-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 50vh;
+    gap: 20px;
+}
+
+.btn-back {
+    padding: 12px 24px;
+    background: #667eea;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.btn-back:hover {
+    background: #5568d3;
+}
+
+@media (max-width: 768px) {
+    .lloc-hero {
+        height: 300px;
+    }
+
+    .lloc-hero h1 {
+        font-size: 32px;
+    }
+
+    .lloc-content-header {
+        flex-direction: column;
+        gap: 15px;
+        align-items: flex-start;
+    }
+
+    .punts-grid,
+    .galeria-grid {
+        grid-template-columns: 1fr;
+    }
+}

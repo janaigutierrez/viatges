@@ -1,0 +1,87 @@
+/* src/components/public/RegionCard.css */
+.region-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative;
+}
+
+.region-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.region-card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.region-card-image {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    background: #f0f0f0;
+}
+
+.region-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s;
+}
+
+.region-card:hover .region-card-image img {
+    transform: scale(1.05);
+}
+
+.region-card-content {
+    padding: 20px;
+}
+
+.region-card-content h3 {
+    margin: 0;
+    font-size: 22px;
+    color: #333;
+    font-weight: 600;
+}
+
+.region-card-actions {
+    display: flex;
+    gap: 10px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-top: 1px solid #e0e0e0;
+}
+
+.btn-edit,
+.btn-delete {
+    flex: 1;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-edit {
+    background: #667eea;
+    color: white;
+}
+
+.btn-edit:hover {
+    background: #5568d3;
+}
+
+.btn-delete {
+    background: #f56565;
+    color: white;
+}
+
+.btn-delete:hover {
+    background: #e53e3e;
+}
