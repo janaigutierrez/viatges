@@ -1,16 +1,36 @@
-# React + Vite
+# Viatges del Pare
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Web per documentar viatges per Espanya amb gestió de regions, llocs i punts d'interès.
 
-Currently, two official plugins are available:
+## Tecnologies
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Frontend**: React + Vite
+- **Backend**: Node.js + Express
+- **Base de dades**: MongoDB Atlas
+- **Autenticació**: JWT + bcrypt
+- **Gestió d'imatges**: Multer
 
-## React Compiler
+## Instal·lació local
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Backend
+```bash
+cd server
+npm install
+cp .env.example .env
+# Omple les variables al .env
+npm run dev
+```
 
-## Expanding the ESLint configuration
+### Frontend
+```bash
+cd client
+npm install
+cp .env.example .env
+npm run dev
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Deploy
+
+- **Frontend**: Netlify
+- **Backend**: Render
+- **BD**: MongoDB Atlas
