@@ -22,6 +22,8 @@
     color: #667eea;
     text-decoration: none;
     transition: transform 0.2s;
+    white-space: nowrap;
+    /* Evita que es trenqui en dues línies */
 }
 
 .navbar-logo:hover {
@@ -32,6 +34,8 @@
     display: flex;
     align-items: center;
     gap: 20px;
+    flex-wrap: wrap;
+    /* Permet que els elements es col·loquin en múltiples línies si cal */
 }
 
 .navbar-link {
@@ -39,6 +43,7 @@
     text-decoration: none;
     font-weight: 500;
     transition: color 0.3s;
+    white-space: nowrap;
 }
 
 .navbar-link:hover {
@@ -48,6 +53,10 @@
 .navbar-user {
     color: #666;
     font-size: 14px;
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .btn-logout,
@@ -60,6 +69,7 @@
     transition: all 0.3s;
     text-decoration: none;
     display: inline-block;
+    white-space: nowrap;
 }
 
 .btn-logout {
@@ -80,4 +90,62 @@
 .btn-admin:hover {
     background: #764ba2;
     border-color: #764ba2;
+}
+
+/* RESPONSIVE - Tablets i menys */
+@media (max-width: 768px) {
+    .navbar-container {
+        padding: 1rem;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .navbar-logo {
+        font-size: 20px;
+    }
+
+    .navbar-menu {
+        gap: 10px;
+        width: 100%;
+        justify-content: flex-end;
+    }
+
+    .navbar-user {
+        font-size: 12px;
+        max-width: 150px;
+    }
+
+    .btn-logout,
+    .btn-admin {
+        padding: 6px 12px;
+        font-size: 14px;
+    }
+}
+
+/* RESPONSIVE - Mòbils petits */
+@media (max-width: 480px) {
+    .navbar-container {
+        padding: 0.75rem;
+    }
+
+    .navbar-logo {
+        font-size: 18px;
+    }
+
+    .navbar-menu {
+        gap: 8px;
+        flex-direction: column;
+        align-items: flex-end;
+    }
+
+    .navbar-user {
+        font-size: 11px;
+        max-width: 120px;
+    }
+
+    .btn-logout,
+    .btn-admin {
+        padding: 6px 10px;
+        font-size: 12px;
+    }
 }
