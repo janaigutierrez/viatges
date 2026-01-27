@@ -1,8 +1,8 @@
-// controllers/regioController.js
 const Regio = require('../models/Regio');
 const Lloc = require('../models/Lloc');
 const fs = require('fs').promises;
 const path = require('path');
+const cloudinary = require('../config/cloudinary')
 
 // @desc    Obtenir totes les regions
 // @route   GET /api/regions
@@ -137,10 +137,11 @@ const deleteRegio = async (req, res, next) => {
             });
         }
 
-        // Eliminar imatge si existeix
+        // Eliminar imatge de Cloudinary si existeix
         if (regio.imatgePortada) {
-            const imagePath = path.join('.', regio.imatgePortada);
-            await fs.unlink(imagePath).catch(() => { });
+            // Extreure public_id de la URL de Cloudinary
+            const publicId = regio.imatgePortada.split('/').pop().split('.')[0];
+            await cloudinary.uploader.destroy(`viatges/${publicId}`).catch(() => { });
         }
 
         await regio.deleteOne();
