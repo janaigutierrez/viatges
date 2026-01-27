@@ -1,4 +1,3 @@
-// middleware/errorHandler.js
 const errorHandler = (err, req, res, next) => {
     console.error('❌ Error captat:', err);
     console.error('Stack:', err.stack);

@@ -1,4 +1,3 @@
-// src/components/admin/RegioModal.jsx
 import { useState, useEffect } from 'react';
 import { createRegio, updateRegio } from '../../services/api';
 import toast from 'react-hot-toast';

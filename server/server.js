@@ -36,7 +36,7 @@ app.use('/api/auth', require('./routes/auth'));
 app.use('/api/regions', require('./routes/regions'));
 app.use('/api/llocs', require('./routes/llocs'));
 
-// Error handler (SEMPRE AL FINAL)
+// Error handler
 app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;

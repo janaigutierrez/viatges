@@ -1,4 +1,3 @@
-// models/Lloc.js
 const mongoose = require('mongoose');
 
 const llocSchema = new mongoose.Schema({

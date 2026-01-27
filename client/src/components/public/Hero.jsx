@@ -1,4 +1,3 @@
-// src/components/public/Hero.jsx
 import './Hero.css';
 
 const Hero = () => {

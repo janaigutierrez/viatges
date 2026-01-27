@@ -1,4 +1,3 @@
-// models/User.js
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
@@ -15,7 +14,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Contrasenya és obligatòria'],
         minlength: [6, 'La contrasenya ha de tenir mínim 6 caràcters'],
-        select: false // MAI s'envia al front
+        select: false // no s'envia al front
     },
     role: {
         type: String,

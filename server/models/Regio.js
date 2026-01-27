@@ -1,4 +1,3 @@
-// models/Regio.js
 const mongoose = require('mongoose');
 
 const regioSchema = new mongoose.Schema({

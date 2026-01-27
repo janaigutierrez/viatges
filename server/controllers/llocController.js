@@ -1,4 +1,3 @@
-// controllers/llocController.js
 const Lloc = require('../models/Lloc');
 const Regio = require('../models/Regio');
 const fs = require('fs').promises;

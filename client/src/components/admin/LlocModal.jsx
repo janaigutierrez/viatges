@@ -1,4 +1,3 @@
-// src/components/admin/LlocModal.jsx
 import { useState, useEffect } from 'react';
 import { createLloc, updateLloc, getRegions } from '../../services/api';
 import toast from 'react-hot-toast';
