@@ -1,19 +1,16 @@
-// src/components/public/LlocCard.jsx
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import { getImageUrl } from '../../utils/imageUrl';
 import './LlocCard.css';
 
 const LlocCard = ({ lloc, regioSlug, onEdit, onDelete }) => {
     const { isAuthenticated } = useAuth();
-    const imageUrl = lloc.imatgePortada
-        ? `http://localhost:5000${lloc.imatgePortada}`
-        : 'https://via.placeholder.com/400x300?text=Sense+Imatge';
 
     return (
         <div className="lloc-card">
             <Link to={`/regio/${regioSlug}/${lloc.slug}`} className="lloc-card-link">
                 <div className="lloc-card-image">
-                    <img src={imageUrl} alt={lloc.nom} />
+                    <img src={getImageUrl(lloc.imatgePortada)} alt={lloc.nom} />
                 </div>
                 <div className="lloc-card-content">
                     <h3>{lloc.nom}</h3>

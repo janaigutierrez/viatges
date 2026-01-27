@@ -1,9 +1,9 @@
-// src/pages/Lloc.jsx
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { getLlocBySlug } from '../services/api';
 import LlocModal from '../components/admin/LlocModal';
+import { getImageUrl } from '../utils/imageUrl';
 import toast from 'react-hot-toast';
 import './Lloc.css';
 
@@ -60,14 +60,10 @@ const Lloc = () => {
         );
     }
 
-    const imageUrl = lloc.imatgePortada
-        ? `http://localhost:5000${lloc.imatgePortada}`
-        : 'https://via.placeholder.com/1200x400?text=Sense+Imatge';
-
     return (
         <div className="lloc-page">
             {/* Hero amb imatge */}
-            <div className="lloc-hero" style={{ backgroundImage: `url(${imageUrl})` }}>
+            <div className="lloc-hero" style={{ backgroundImage: `url(${getImageUrl(lloc.imatgePortada)})` }}>
                 <div className="lloc-hero-overlay">
                     <div className="lloc-hero-content">
                         <Link to={`/regio/${regioSlug}`} className="breadcrumb">
@@ -119,7 +115,7 @@ const Lloc = () => {
                             {lloc.galeriaImatges.map((img, index) => (
                                 <div key={index} className="galeria-item">
                                     <img
-                                        src={`http://localhost:5000${img}`}
+                                        src={getImageUrl(img)}
                                         alt={`${lloc.nom} ${index + 1}`}
                                     />
                                 </div>
