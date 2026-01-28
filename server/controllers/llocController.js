@@ -2,6 +2,7 @@ const Lloc = require('../models/Lloc');
 const Regio = require('../models/Regio');
 const fs = require('fs').promises;
 const path = require('path');
+const cloudinary = require('../config/cloudinary');
 
 // Funció helper per extreure public_id de la URL de Cloudinary
 const getPublicIdFromUrl = (url) => {
