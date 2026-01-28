@@ -4,6 +4,15 @@ const fs = require('fs').promises;
 const path = require('path');
 const cloudinary = require('../config/cloudinary')
 
+// Funció helper per extreure public_id de la URL de Cloudinary
+const getPublicIdFromUrl = (url) => {
+    const parts = url.split('/');
+    const filename = parts[parts.length - 1];
+    const publicId = filename.split('.')[0];
+    const folder = parts[parts.length - 2];
+    return `${folder}/${publicId}`;
+};
+
 // @desc    Obtenir totes les regions
 // @route   GET /api/regions
 // @access  Public
@@ -74,6 +83,9 @@ const updateRegio = async (req, res, next) => {
         const regio = await Regio.findById(req.params.id);
 
         if (!regio) {
+            if (req.file) {
+                await cloudinary.uploader.destroy(getPublicIdFromUrl(req.file.path)).catch(() => { });
+            }
             return res.status(404).json({
                 error: 'Regió no trobada'
             });
@@ -81,13 +93,7 @@ const updateRegio = async (req, res, next) => {
 
         // Si hi ha nova imatge, eliminar l'anterior de Cloudinary
         if (req.file && regio.imatgePortada) {
-            // Extreure public_id de la URL antiga
-            const urlParts = regio.imatgePortada.split('/');
-            const publicIdWithExt = urlParts[urlParts.length - 1];
-            const publicId = publicIdWithExt.split('.')[0];
-            const folder = urlParts[urlParts.length - 2];
-
-            await cloudinary.uploader.destroy(`${folder}/${publicId}`).catch(() => { });
+            await cloudinary.uploader.destroy(getPublicIdFromUrl(regio.imatgePortada)).catch(() => { });
         }
 
         // Actualitzar camps
@@ -96,13 +102,16 @@ const updateRegio = async (req, res, next) => {
         regio.ordre = ordre !== undefined ? ordre : regio.ordre;
 
         if (req.file) {
-            regio.imatgePortada = req.file.path; // URL completa de Cloudinary
+            regio.imatgePortada = req.file.path;
         }
 
         await regio.save();
 
         res.json(regio);
     } catch (error) {
+        if (req.file) {
+            await cloudinary.uploader.destroy(getPublicIdFromUrl(req.file.path)).catch(() => { });
+        }
         next(error);
     }
 };
@@ -131,9 +140,7 @@ const deleteRegio = async (req, res, next) => {
 
         // Eliminar imatge de Cloudinary si existeix
         if (regio.imatgePortada) {
-            // Extreure public_id de la URL de Cloudinary
-            const publicId = regio.imatgePortada.split('/').pop().split('.')[0];
-            await cloudinary.uploader.destroy(`viatges/${publicId}`).catch(() => { });
+            await cloudinary.uploader.destroy(getPublicIdFromUrl(regio.imatgePortada)).catch(() => { });
         }
 
         await regio.deleteOne();
