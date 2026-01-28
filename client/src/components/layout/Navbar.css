@@ -1,3 +1,4 @@
+/* src/components/layout/Navbar.css */
 .navbar {
     background: white;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -21,20 +22,50 @@
     color: #667eea;
     text-decoration: none;
     transition: transform 0.2s;
-    white-space: nowrap;
-    /* Evita que es trenqui en dues línies */
+    z-index: 102;
 }
 
 .navbar-logo:hover {
     transform: scale(1.05);
 }
 
+/* Botó hamburguesa (només visible en mòbil) */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    z-index: 102;
+}
+
+.hamburger span {
+    width: 25px;
+    height: 3px;
+    background: #333;
+    border-radius: 3px;
+    transition: all 0.3s;
+}
+
+.hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translate(8px, 8px);
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -7px);
+}
+
+/* Menú */
 .navbar-menu {
     display: flex;
     align-items: center;
     gap: 20px;
-    flex-wrap: wrap;
-    /* Permet que els elements es col·loquin en múltiples línies si cal */
 }
 
 .navbar-link {
@@ -42,7 +73,6 @@
     text-decoration: none;
     font-weight: 500;
     transition: color 0.3s;
-    white-space: nowrap;
 }
 
 .navbar-link:hover {
@@ -52,10 +82,6 @@
 .navbar-user {
     color: #666;
     font-size: 14px;
-    max-width: 200px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
 }
 
 .btn-logout,
@@ -68,7 +94,6 @@
     transition: all 0.3s;
     text-decoration: none;
     display: inline-block;
-    white-space: nowrap;
 }
 
 .btn-logout {
@@ -91,60 +116,72 @@
     border-color: #764ba2;
 }
 
-/* RESPONSIVE - Tablets i menys */
+/* Overlay per tancar menú en mòbil */
+.navbar-overlay {
+    display: none;
+}
+
+/* RESPONSIVE - Mòbil */
 @media (max-width: 768px) {
     .navbar-container {
         padding: 1rem;
-        flex-wrap: wrap;
-        gap: 10px;
     }
 
-    .navbar-logo {
-        font-size: 20px;
+    /* Mostrar botó hamburguesa */
+    .hamburger {
+        display: flex;
     }
 
+    /* Menú desplegable */
     .navbar-menu {
-        gap: 10px;
-        width: 100%;
-        justify-content: flex-end;
-    }
-
-    .navbar-user {
-        font-size: 12px;
-        max-width: 150px;
-    }
-
-    .btn-logout,
-    .btn-admin {
-        padding: 6px 12px;
-        font-size: 14px;
-    }
-}
-
-/* RESPONSIVE - Mòbils petits */
-@media (max-width: 480px) {
-    .navbar-container {
-        padding: 0.75rem;
-    }
-
-    .navbar-logo {
-        font-size: 18px;
-    }
-
-    .navbar-menu {
-        gap: 8px;
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 70%;
+        max-width: 300px;
+        height: 100vh;
+        background: white;
         flex-direction: column;
-        align-items: flex-end;
+        align-items: flex-start;
+        padding: 80px 30px 30px;
+        gap: 25px;
+        box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+        transition: right 0.3s ease-in-out;
+        z-index: 101;
     }
 
-    .navbar-user {
-        font-size: 11px;
-        max-width: 120px;
+    .navbar-menu.active {
+        right: 0;
+    }
+
+    .navbar-link,
+    .navbar-user,
+    .btn-logout,
+    .btn-admin {
+        width: 100%;
+        text-align: left;
     }
 
     .btn-logout,
     .btn-admin {
-        padding: 6px 10px;
-        font-size: 12px;
+        text-align: center;
+    }
+
+    .navbar-user {
+        padding: 8px 0;
+        border-bottom: 1px solid #e0e0e0;
+        font-size: 13px;
+    }
+
+    /* Overlay quan el menú està obert */
+    .navbar-overlay {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 100;
     }
 }
