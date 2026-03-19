@@ -1,0 +1,99 @@
+.punt-card-nav {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative;
+}
+
+.punt-card-nav:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.punt-card-nav-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.punt-card-nav-image {
+    width: 100%;
+    height: 180px;
+    overflow: hidden;
+    background: #f0f0f0;
+}
+
+.punt-card-nav-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s;
+}
+
+.punt-card-nav:hover .punt-card-nav-image img {
+    transform: scale(1.05);
+}
+
+.punt-card-nav-content {
+    padding: 18px;
+}
+
+.punt-card-nav-content h4 {
+    margin: 0 0 8px 0;
+    font-size: 18px;
+    color: #333;
+    font-weight: 600;
+}
+
+.punt-card-nav-content p {
+    margin: 0 0 12px 0;
+    color: #666;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.punt-card-nav-cta {
+    font-size: 13px;
+    color: #667eea;
+    font-weight: 600;
+}
+
+.punt-card-nav-actions {
+    display: flex;
+    gap: 10px;
+    padding: 12px 18px;
+    background: #f8f9fa;
+    border-top: 1px solid #e0e0e0;
+}
+
+.punt-card-nav-actions .btn-edit,
+.punt-card-nav-actions .btn-delete {
+    flex: 1;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.punt-card-nav-actions .btn-edit {
+    background: #667eea;
+    color: white;
+}
+
+.punt-card-nav-actions .btn-edit:hover {
+    background: #5568d3;
+}
+
+.punt-card-nav-actions .btn-delete {
+    background: #f56565;
+    color: white;
+}
+
+.punt-card-nav-actions .btn-delete:hover {
+    background: #e53e3e;
+}

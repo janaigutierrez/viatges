@@ -1,65 +1,74 @@
-.lloc-page {
+.punt-page {
     min-height: 100vh;
     background: #f8f9fa;
 }
 
-.lloc-hero {
+.punt-hero {
     height: 400px;
     background-size: cover;
     background-position: center;
     position: relative;
 }
 
-.lloc-hero-overlay {
+.punt-hero-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.6));
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.65));
     display: flex;
     align-items: flex-end;
     padding: 40px 20px;
 }
 
-.lloc-hero-content {
+.punt-hero-content {
     max-width: 1200px;
     margin: 0 auto;
     width: 100%;
     color: white;
 }
 
-.breadcrumb {
-    display: inline-block;
+.punt-breadcrumb {
+    font-size: 14px;
+    margin-bottom: 12px;
+    opacity: 0.9;
+}
+
+.punt-breadcrumb a {
     color: white;
     text-decoration: none;
-    margin-bottom: 15px;
-    opacity: 0.9;
-    transition: opacity 0.3s;
+    opacity: 0.85;
+    transition: opacity 0.2s;
 }
 
-.breadcrumb:hover {
+.punt-breadcrumb a:hover {
     opacity: 1;
+    text-decoration: underline;
 }
 
-.lloc-hero h1 {
+.punt-breadcrumb span {
+    margin: 0 6px;
+}
+
+.punt-hero h1 {
     margin: 0;
     font-size: 48px;
     font-weight: 700;
     text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
 }
 
-.lloc-content {
+.punt-content {
     max-width: 1200px;
     margin: 0 auto;
     padding: 40px 20px;
 }
 
-.lloc-content-header {
+.punt-content-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 30px;
 }
 
-.lloc-content-header h2 {
+.punt-content-header h2 {
     margin: 0;
     font-size: 32px;
     color: #333;
@@ -82,68 +91,18 @@
     transform: translateY(-2px);
 }
 
-.lloc-section {
+.punt-section {
     margin-bottom: 50px;
 }
 
-.lloc-section h3 {
-    font-size: 24px;
-    color: #333;
-    margin: 0 0 20px 0;
-    padding-bottom: 10px;
-    border-bottom: 3px solid #667eea;
-}
-
-.lloc-description {
+.punt-description {
     font-size: 18px;
     line-height: 1.8;
     color: #555;
     white-space: pre-wrap;
 }
 
-.section-title-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-.section-title-row h3 {
-    font-size: 24px;
-    color: #333;
-    margin: 0;
-    padding-bottom: 10px;
-    border-bottom: 3px solid #667eea;
-}
-
-.btn-add-section {
-    padding: 10px 20px;
-    background: #667eea;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s;
-}
-
-.btn-add-section:hover {
-    background: #5568d3;
-}
-
-.empty-section {
-    color: #888;
-    font-style: italic;
-    padding: 10px 0;
-}
-
-.punts-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 20px;
-}
-
+/* Galeria */
 .galeria-header {
     display: flex;
     justify-content: space-between;
@@ -175,6 +134,12 @@
     background: #38a169;
 }
 
+.galeria-buida {
+    color: #888;
+    font-style: italic;
+    padding: 20px 0;
+}
+
 .galeria-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
@@ -199,6 +164,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transition: transform 0.3s;
 }
 
 .galeria-delete-btn {
@@ -248,25 +214,27 @@
 }
 
 @media (max-width: 768px) {
-    .lloc-hero {
+    .punt-hero {
         height: 300px;
     }
 
-    .lloc-hero h1 {
-        font-size: 32px;
+    .punt-hero h1 {
+        font-size: 30px;
     }
 
-    .lloc-content-header {
+    .punt-content-header {
         flex-direction: column;
         gap: 15px;
         align-items: flex-start;
     }
 
-    .punts-grid {
-        grid-template-columns: 1fr;
-    }
-
     .galeria-grid {
         grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .galeria-grid {
+        grid-template-columns: 1fr;
     }
 }

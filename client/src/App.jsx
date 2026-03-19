@@ -6,6 +6,7 @@ import Footer from './components/layout/Footer';
 import Home from './pages/Home';
 import Region from './pages/Region';
 import Lloc from './pages/Lloc';
+import PuntInteres from './pages/PuntInteres';
 import AdminLogin from './pages/AdminLogin';
 import './App.css';
 
@@ -21,6 +22,7 @@ function App() {
               <Route path="/admin" element={<AdminLogin />} />
               <Route path="/regio/:regioSlug" element={<Region />} />
               <Route path="/regio/:regioSlug/:llocSlug" element={<Lloc />} />
+              <Route path="/regio/:regioSlug/:llocSlug/:puntSlug" element={<PuntInteres />} />
             </Routes>
           </main>
           <Footer />

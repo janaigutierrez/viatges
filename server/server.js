@@ -35,6 +35,7 @@ app.get('/api/health', (req, res) => {
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/regions', require('./routes/regions'));
 app.use('/api/llocs', require('./routes/llocs'));
+app.use('/api/punts', require('./routes/punts'));
 
 // Error handler
 app.use(errorHandler);
