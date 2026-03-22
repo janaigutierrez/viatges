@@ -7,8 +7,7 @@ const Home = () => {
         <div className="home">
             <div className="home-hero">
                 <div className="home-hero-content">
-                    <h1>Els racons del pare</h1>
-                    <p>Tot el que sap, recorda i estima — en un sol lloc</p>
+                    <h1>Els racons del Jose Luis</h1>
                 </div>
             </div>
 

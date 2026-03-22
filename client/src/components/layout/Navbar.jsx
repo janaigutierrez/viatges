@@ -37,7 +37,7 @@ const Navbar = () => {
         <nav className="navbar">
             <div className="navbar-container">
                 <Link to="/" className="navbar-logo">
-                    Els racons del pare
+                    Jose Luis
                 </Link>
 
                 {/* Botó hamburguesa (mòbil) */}
