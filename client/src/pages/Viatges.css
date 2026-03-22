@@ -1,52 +1,45 @@
-.region-page {
+.viatges-page {
     min-height: 100vh;
     background: var(--bg-page);
 }
 
-.region-header {
+.viatges-header {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    padding: 60px 20px 40px;
+    padding: 50px 20px 40px;
     color: white;
 }
 
-.region-header-content {
+.viatges-header-content {
     max-width: 1200px;
     margin: 0 auto;
 }
 
-.breadcrumb {
-    display: inline-block;
-    color: white;
-    text-decoration: none;
-    margin-bottom: 20px;
-    opacity: 0.9;
-    transition: opacity 0.3s;
-}
-
-.breadcrumb:hover {
-    opacity: 1;
-}
-
-.region-header h1 {
-    margin: 0;
+.viatges-header-content h1 {
+    margin: 12px 0 8px;
     font-size: 42px;
     font-weight: 700;
 }
 
-.region-content {
+.viatges-header-content p {
+    margin: 0;
+    font-size: 16px;
+    opacity: 0.85;
+}
+
+.viatges-content {
     max-width: 1200px;
     margin: 0 auto;
     padding: 40px 20px;
 }
 
-.region-content-header {
+.viatges-content-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 30px;
 }
 
-.region-content-header h2 {
+.viatges-content-header h2 {
     margin: 0;
     font-size: 28px;
     color: var(--text-primary);
@@ -67,10 +60,9 @@
 .btn-create:hover {
     background: #5568d3;
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
 }
 
-.llocs-grid {
+.regions-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 30px;
@@ -83,41 +75,18 @@
     font-size: 18px;
 }
 
-.error-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 50vh;
-    gap: 20px;
-}
-
-.btn-back {
-    padding: 12px 24px;
-    background: #667eea;
-    color: white;
-    text-decoration: none;
-    border-radius: 8px;
-    font-weight: 600;
-    transition: all 0.3s;
-}
-
-.btn-back:hover {
-    background: #5568d3;
-}
-
 @media (max-width: 768px) {
-    .region-header h1 {
+    .viatges-header-content h1 {
         font-size: 32px;
     }
 
-    .region-content-header {
+    .viatges-content-header {
         flex-direction: column;
         gap: 15px;
         align-items: flex-start;
     }
 
-    .llocs-grid {
+    .regions-grid {
         grid-template-columns: 1fr;
     }
 }

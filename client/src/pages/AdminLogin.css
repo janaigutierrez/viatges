@@ -8,24 +8,25 @@
 }
 
 .login-box {
-    background: white;
+    background: var(--bg-card);
     padding: 40px;
     border-radius: 12px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 40px var(--shadow-md);
     width: 100%;
     max-width: 400px;
+    transition: background 0.2s;
 }
 
 .login-box h1 {
     margin: 0 0 10px 0;
     font-size: 28px;
-    color: #333;
+    color: var(--text-primary);
     text-align: center;
 }
 
 .login-subtitle {
     text-align: center;
-    color: #666;
+    color: var(--text-secondary);
     margin-bottom: 30px;
     font-size: 14px;
 }
@@ -44,16 +45,18 @@
 
 .form-group label {
     font-weight: 600;
-    color: #333;
+    color: var(--text-primary);
     font-size: 14px;
 }
 
 .form-group input {
     padding: 12px;
-    border: 2px solid #e0e0e0;
+    border: 2px solid var(--input-border);
     border-radius: 8px;
     font-size: 14px;
-    transition: border-color 0.3s;
+    background: var(--input-bg);
+    color: var(--text-primary);
+    transition: border-color 0.3s, background 0.2s;
 }
 
 .form-group input:focus {

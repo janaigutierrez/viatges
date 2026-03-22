@@ -87,7 +87,7 @@ const Region = () => {
         return (
             <div className="error-container">
                 <h2>Regió no trobada</h2>
-                <Link to="/" className="btn-back">Tornar a l'inici</Link>
+                <Link to="/viatges" className="btn-back">Tornar a viatges</Link>
             </div>
         );
     }
@@ -96,7 +96,7 @@ const Region = () => {
         <div className="region-page">
             <div className="region-header">
                 <div className="region-header-content">
-                    <Link to="/" className="breadcrumb">← Tornar a regions</Link>
+                    <Link to="/viatges" className="breadcrumb">← Tornar a regions</Link>
                     <h1>{regio.nom}</h1>
                 </div>
             </div>

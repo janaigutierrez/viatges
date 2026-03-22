@@ -1,10 +1,10 @@
-/* src/components/layout/Navbar.css */
 .navbar {
-    background: white;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    background: var(--navbar-bg);
+    box-shadow: 0 2px 10px var(--shadow-sm);
     position: sticky;
     top: 0;
     z-index: 100;
+    transition: background 0.2s;
 }
 
 .navbar-container {
@@ -17,19 +17,20 @@
 }
 
 .navbar-logo {
-    font-size: 24px;
+    font-size: 18px;
     font-weight: 700;
     color: #667eea;
     text-decoration: none;
-    transition: transform 0.2s;
+    transition: opacity 0.2s;
     z-index: 102;
+    letter-spacing: -0.3px;
 }
 
 .navbar-logo:hover {
-    transform: scale(1.05);
+    opacity: 0.8;
 }
 
-/* Botó hamburguesa (només visible en mòbil) */
+/* Hamburguesa */
 .hamburger {
     display: none;
     flex-direction: column;
@@ -44,44 +45,145 @@
 .hamburger span {
     width: 25px;
     height: 3px;
-    background: #333;
+    background: var(--text-primary);
     border-radius: 3px;
     transition: all 0.3s;
 }
 
-.hamburger.active span:nth-child(1) {
-    transform: rotate(45deg) translate(8px, 8px);
-}
-
-.hamburger.active span:nth-child(2) {
-    opacity: 0;
-}
-
-.hamburger.active span:nth-child(3) {
-    transform: rotate(-45deg) translate(7px, -7px);
-}
+.hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(8px, 8px); }
+.hamburger.active span:nth-child(2) { opacity: 0; }
+.hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(7px, -7px); }
 
 /* Menú */
 .navbar-menu {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 8px;
 }
 
-.navbar-link {
-    color: #333;
-    text-decoration: none;
+/* Dropdown racons */
+.navbar-dropdown {
+    position: relative;
+}
+
+.navbar-dropdown-toggle {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: none;
+    border: none;
+    font-size: 15px;
     font-weight: 500;
-    transition: color 0.3s;
+    color: var(--text-primary);
+    cursor: pointer;
+    padding: 8px 12px;
+    border-radius: 8px;
+    transition: background 0.2s, color 0.2s;
 }
 
-.navbar-link:hover {
+.navbar-dropdown-toggle:hover {
+    background: var(--bg-card-alt);
     color: #667eea;
 }
 
+.dropdown-arrow {
+    font-size: 12px;
+    transition: transform 0.2s;
+    display: inline-block;
+}
+
+.dropdown-arrow.open {
+    transform: rotate(180deg);
+}
+
+.navbar-dropdown-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    box-shadow: 0 8px 30px var(--shadow-md);
+    min-width: 200px;
+    padding: 6px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-6px);
+    transition: opacity 0.18s, transform 0.18s, visibility 0.18s;
+    z-index: 200;
+}
+
+.navbar-dropdown-menu.open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--text-primary);
+    font-size: 15px;
+    font-weight: 500;
+    transition: background 0.15s;
+    cursor: pointer;
+}
+
+.dropdown-item:hover:not(.dropdown-item--disabled) {
+    background: var(--bg-card-alt);
+    color: #667eea;
+}
+
+.dropdown-item--disabled {
+    opacity: 0.5;
+    cursor: default;
+}
+
+.dropdown-item-emoji {
+    font-size: 18px;
+    width: 24px;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.dropdown-item-badge {
+    margin-left: auto;
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--text-muted);
+    background: var(--bg-card-alt);
+    border: 1px solid var(--border);
+    padding: 2px 7px;
+    border-radius: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+/* Botó tema */
+.btn-theme-toggle {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 6px 10px;
+    border-radius: 8px;
+    transition: background 0.2s;
+    line-height: 1;
+}
+
+.btn-theme-toggle:hover {
+    background: var(--bg-card-alt);
+}
+
+/* Auth */
 .navbar-user {
-    color: #666;
+    color: var(--text-secondary);
     font-size: 14px;
+    padding: 0 4px;
 }
 
 .btn-logout,
@@ -94,6 +196,7 @@
     transition: all 0.3s;
     text-decoration: none;
     display: inline-block;
+    font-size: 15px;
 }
 
 .btn-logout {
@@ -116,71 +219,98 @@
     border-color: #764ba2;
 }
 
-/* Overlay per tancar menú en mòbil */
 .navbar-overlay {
     display: none;
 }
 
-/* RESPONSIVE - Mòbil */
+/* ── MÒBIL ── */
 @media (max-width: 768px) {
     .navbar-container {
         padding: 1rem;
     }
 
-    /* Mostrar botó hamburguesa */
     .hamburger {
         display: flex;
     }
 
-    /* Menú desplegable */
     .navbar-menu {
         position: fixed;
         top: 0;
         right: -100%;
-        width: 70%;
+        width: 75%;
         max-width: 300px;
         height: 100vh;
-        background: white;
+        background: var(--navbar-bg);
         flex-direction: column;
         align-items: flex-start;
-        padding: 80px 30px 30px;
-        gap: 25px;
-        box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+        padding: 80px 20px 30px;
+        gap: 4px;
+        box-shadow: -2px 0 10px var(--shadow-sm);
         transition: right 0.3s ease-in-out;
         z-index: 101;
+        overflow-y: auto;
     }
 
     .navbar-menu.active {
         right: 0;
     }
 
-    .navbar-link,
-    .navbar-user,
-    .btn-logout,
-    .btn-admin {
+    /* Dropdown en mòbil: estàtic, no flotant */
+    .navbar-dropdown {
         width: 100%;
-        text-align: left;
     }
 
-    .btn-logout,
-    .btn-admin {
-        text-align: center;
+    .navbar-dropdown-toggle {
+        width: 100%;
+        justify-content: space-between;
+        padding: 12px 14px;
+        font-size: 16px;
+    }
+
+    .navbar-dropdown-menu {
+        position: static;
+        box-shadow: none;
+        border: none;
+        background: var(--bg-card-alt);
+        border-radius: 8px;
+        transform: none;
+        opacity: 1;
+        visibility: visible;
+        display: none;
+        margin-top: 4px;
+        padding: 4px;
+    }
+
+    .navbar-dropdown-menu.open {
+        display: block;
+    }
+
+    .btn-theme-toggle {
+        width: 100%;
+        text-align: left;
+        font-size: 18px;
+        padding: 12px 14px;
     }
 
     .navbar-user {
-        padding: 8px 0;
-        border-bottom: 1px solid #e0e0e0;
+        width: 100%;
+        padding: 10px 14px;
+        border-bottom: 1px solid var(--border);
         font-size: 13px;
     }
 
-    /* Overlay quan el menú està obert */
+    .btn-logout,
+    .btn-admin {
+        width: 100%;
+        text-align: center;
+        padding: 12px;
+        font-size: 16px;
+    }
+
     .navbar-overlay {
         display: block;
         position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100vh;
+        inset: 0;
         background: rgba(0, 0, 0, 0.5);
         z-index: 100;
     }

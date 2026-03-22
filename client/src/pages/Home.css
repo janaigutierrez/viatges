@@ -1,79 +1,144 @@
 .home {
     min-height: 100vh;
-    background: #f8f9fa;
+    background: var(--bg-page);
 }
 
-.loading-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 50vh;
-    font-size: 18px;
-    color: #666;
-}
-
-.home-content {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 40px 20px;
-}
-
-.home-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 30px;
-}
-
-.home-header h2 {
-    margin: 0;
-    font-size: 32px;
-    color: #333;
-}
-
-.btn-create {
-    padding: 12px 24px;
-    background: #667eea;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s;
-}
-
-.btn-create:hover {
-    background: #5568d3;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
-}
-
-.regions-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 30px;
-}
-
-.empty-state {
+/* Hero */
+.home-hero {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 80px 20px;
     text-align: center;
+    color: white;
+}
+
+.home-hero-content h1 {
+    margin: 0 0 12px;
+    font-size: 48px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.home-hero-content p {
+    margin: 0;
+    font-size: 20px;
+    opacity: 0.85;
+}
+
+/* Contingut */
+.home-content {
+    max-width: 900px;
+    margin: 0 auto;
     padding: 60px 20px;
-    color: #666;
-    font-size: 18px;
+}
+
+.home-content h2 {
+    margin: 0 0 30px;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Grid de racons */
+.racons-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    gap: 20px;
+}
+
+.raco-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.raco-card {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background: var(--bg-card);
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 4px 15px var(--shadow-sm);
+    transition: transform 0.25s, box-shadow 0.25s, background 0.2s;
+    position: relative;
+    border: 1px solid var(--border);
+}
+
+.raco-link:hover .raco-card {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 30px var(--shadow-md);
+}
+
+.raco-card--aviat {
+    opacity: 0.6;
+    cursor: default;
+}
+
+.raco-card-emoji {
+    font-size: 44px;
+    line-height: 1;
+    flex-shrink: 0;
+    width: 64px;
+    text-align: center;
+}
+
+.raco-card-body {
+    flex: 1;
+    min-width: 0;
+}
+
+.raco-card-body h3 {
+    margin: 0 0 6px;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.raco-card-body p {
+    margin: 0;
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+.raco-badge {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    background: var(--bg-card-alt);
+    color: var(--text-muted);
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.raco-arrow {
+    font-size: 22px;
+    color: #667eea;
+    flex-shrink: 0;
+    transition: transform 0.2s;
+}
+
+.raco-link:hover .raco-arrow {
+    transform: translateX(4px);
 }
 
 @media (max-width: 768px) {
-    .home-header {
-        flex-direction: column;
-        gap: 15px;
-        align-items: flex-start;
+    .home-hero-content h1 {
+        font-size: 32px;
     }
 
-    .home-header h2 {
-        font-size: 24px;
+    .home-hero-content p {
+        font-size: 16px;
     }
 
-    .regions-grid {
+    .racons-grid {
         grid-template-columns: 1fr;
     }
 }

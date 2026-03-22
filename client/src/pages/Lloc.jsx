@@ -117,7 +117,7 @@ const Lloc = () => {
         return (
             <div className="error-container">
                 <h2>Lloc no trobat</h2>
-                <Link to={`/regio/${regioSlug}`} className="btn-back">
+                <Link to={`/viatges/regio/${regioSlug}`} className="btn-back">
                     Tornar a {regioSlug}
                 </Link>
             </div>
@@ -130,7 +130,7 @@ const Lloc = () => {
             <div className="lloc-hero" style={{ backgroundImage: `url(${getImageUrl(lloc.imatgePortada)})` }}>
                 <div className="lloc-hero-overlay">
                     <div className="lloc-hero-content">
-                        <Link to={`/regio/${regioSlug}`} className="breadcrumb">
+                        <Link to={`/viatges/regio/${regioSlug}`} className="breadcrumb">
                             ← Tornar a {lloc.regio.nom}
                         </Link>
                         <h1>{lloc.nom}</h1>

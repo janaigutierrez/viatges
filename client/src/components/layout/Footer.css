@@ -1,8 +1,9 @@
 .footer {
-    background: #2d3748;
+    background: var(--footer-bg);
     color: white;
     padding: 2rem 0;
     margin-top: auto;
+    transition: background 0.2s;
 }
 
 .footer-container {
@@ -15,5 +16,5 @@
 .footer p {
     margin: 0;
     font-size: 14px;
-    color: #a0aec0;
+    color: var(--footer-text);
 }

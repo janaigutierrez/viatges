@@ -8,7 +8,7 @@ const RegionCard = ({ regio, onEdit, onDelete }) => {
 
     return (
         <div className="region-card">
-            <Link to={`/regio/${regio.slug}`} className="region-card-link">
+            <Link to={`/viatges/regio/${regio.slug}`} className="region-card-link">
                 <div className="region-card-image">
                     <img src={getImageUrl(regio.imatgePortada)} alt={regio.nom} />
                 </div>
