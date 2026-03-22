@@ -2,19 +2,16 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import { useTheme } from '../../context/ThemeContext';
 import './Navbar.css';
 
 const Navbar = () => {
     const { isAuthenticated, logout, user } = useAuth();
+    const { theme, toggleTheme } = useTheme();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-    const toggleMenu = () => {
-        setIsMenuOpen(!isMenuOpen);
-    };
-
-    const closeMenu = () => {
-        setIsMenuOpen(false);
-    };
+    const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+    const closeMenu = () => setIsMenuOpen(false);
 
     return (
         <nav className="navbar">
@@ -34,17 +31,24 @@ const Navbar = () => {
                     <span></span>
                 </button>
 
-                {/* Menú (desktop sempre visible, mòbil desplegable) */}
+                {/* Menú */}
                 <div className={`navbar-menu ${isMenuOpen ? 'active' : ''}`}>
                     <Link to="/" className="navbar-link" onClick={closeMenu}>
                         Inici
                     </Link>
 
+                    <button
+                        className="btn-theme-toggle"
+                        onClick={toggleTheme}
+                        aria-label="Canviar tema"
+                        title={theme === 'light' ? 'Mode fosc' : 'Mode clar'}
+                    >
+                        {theme === 'light' ? '🌙' : '☀️'}
+                    </button>
+
                     {isAuthenticated ? (
                         <>
-                            <span className="navbar-user">
-                                {user?.email}
-                            </span>
+                            <span className="navbar-user">{user?.email}</span>
                             <button onClick={() => { logout(); closeMenu(); }} className="btn-logout">
                                 Sortir
                             </button>

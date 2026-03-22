@@ -1,6 +1,6 @@
 .region-page {
     min-height: 100vh;
-    background: #f8f9fa;
+    background: var(--bg-page);
 }
 
 .region-header {
@@ -49,7 +49,7 @@
 .region-content-header h2 {
     margin: 0;
     font-size: 28px;
-    color: #333;
+    color: var(--text-primary);
 }
 
 .btn-create {
@@ -79,7 +79,7 @@
 .empty-state {
     text-align: center;
     padding: 60px 20px;
-    color: #666;
+    color: var(--text-secondary);
     font-size: 18px;
 }
 

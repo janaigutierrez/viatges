@@ -1,7 +1,7 @@
 .modal-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.7);
+    background: var(--modal-overlay);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -11,13 +11,14 @@
 }
 
 .modal-content {
-    background: white;
+    background: var(--bg-card);
     border-radius: 12px;
     width: 100%;
     max-width: 600px;
     max-height: 90vh;
     overflow-y: auto;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 20px 60px var(--shadow-md);
+    transition: background 0.2s;
 }
 
 .modal-large {
@@ -29,20 +30,20 @@
     justify-content: space-between;
     align-items: center;
     padding: 20px 30px;
-    border-bottom: 1px solid #e0e0e0;
+    border-bottom: 1px solid var(--border);
 }
 
 .modal-header h2 {
     margin: 0;
     font-size: 24px;
-    color: #333;
+    color: var(--text-primary);
 }
 
 .modal-close {
     background: none;
     border: none;
     font-size: 28px;
-    color: #666;
+    color: var(--text-secondary);
     cursor: pointer;
     padding: 0;
     width: 32px;
@@ -55,8 +56,8 @@
 }
 
 .modal-close:hover {
-    background: #f0f0f0;
-    color: #333;
+    background: var(--bg-card-alt);
+    color: var(--text-primary);
 }
 
 .modal-form {
@@ -78,7 +79,7 @@
 
 .form-group label {
     font-weight: 600;
-    color: #333;
+    color: var(--text-primary);
     font-size: 14px;
 }
 
@@ -86,11 +87,13 @@
 .form-group select,
 .form-group textarea {
     padding: 12px;
-    border: 2px solid #e0e0e0;
+    border: 2px solid var(--input-border);
     border-radius: 8px;
     font-size: 14px;
     font-family: inherit;
-    transition: border-color 0.3s;
+    background: var(--input-bg);
+    color: var(--text-primary);
+    transition: border-color 0.3s, background 0.2s, color 0.2s;
 }
 
 .form-group input:focus,
@@ -101,15 +104,16 @@
 }
 
 .form-group small {
-    color: #666;
+    color: var(--text-secondary);
     font-size: 12px;
 }
 
 .form-section {
     margin: 30px 0;
     padding: 20px;
-    background: #f8f9fa;
+    background: var(--bg-card-alt);
     border-radius: 8px;
+    border: 1px solid var(--border);
 }
 
 .section-header {
@@ -122,7 +126,7 @@
 .section-header h3 {
     margin: 0;
     font-size: 18px;
-    color: #333;
+    color: var(--text-primary);
 }
 
 .btn-add-small {
@@ -157,9 +161,11 @@
 
 .punt-fields input {
     padding: 10px;
-    border: 2px solid #e0e0e0;
+    border: 2px solid var(--input-border);
     border-radius: 6px;
     font-size: 14px;
+    background: var(--input-bg);
+    color: var(--text-primary);
 }
 
 .btn-remove {
@@ -182,7 +188,7 @@
     gap: 15px;
     margin-top: 30px;
     padding-top: 20px;
-    border-top: 1px solid #e0e0e0;
+    border-top: 1px solid var(--border);
 }
 
 .btn-cancel,
@@ -198,12 +204,13 @@
 }
 
 .btn-cancel {
-    background: #e0e0e0;
-    color: #666;
+    background: var(--bg-card-alt);
+    color: var(--text-secondary);
+    border: 1px solid var(--border);
 }
 
 .btn-cancel:hover:not(:disabled) {
-    background: #d0d0d0;
+    background: var(--border);
 }
 
 .btn-submit {
