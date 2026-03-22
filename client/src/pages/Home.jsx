@@ -1,116 +1,44 @@
-import { useState, useEffect } from 'react';
-import { useAuth } from '../context/AuthContext';
-import { getRegions, deleteRegio } from '../services/api';
-import Hero from '../components/public/Hero';
-import RegionCard from '../components/public/RegionCard';
-import RegioModal from '../components/admin/RegioModal';
-import toast from 'react-hot-toast';
+import { Link } from 'react-router-dom';
+import { RACONS } from '../config/racons';
 import './Home.css';
 
 const Home = () => {
-    const { isAuthenticated } = useAuth();
-    const [regions, setRegions] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [showModal, setShowModal] = useState(false);
-    const [selectedRegio, setSelectedRegio] = useState(null);
-
-    useEffect(() => {
-        fetchRegions();
-    }, []);
-
-    const fetchRegions = async () => {
-        try {
-            const response = await getRegions();
-            setRegions(response.data);
-        } catch (error) {
-            toast.error('Error carregant les regions');
-            console.error(error);
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    const handleCreate = () => {
-        setSelectedRegio(null);
-        setShowModal(true);
-    };
-
-    const handleEdit = (regio) => {
-        setSelectedRegio(regio);
-        setShowModal(true);
-    };
-
-    const handleDelete = async (regio) => {
-        if (!window.confirm(`Segur que vols eliminar "${regio.nom}"?`)) {
-            return;
-        }
-
-        try {
-            await deleteRegio(regio.id);
-            toast.success('Regió eliminada correctament');
-            fetchRegions();
-        } catch (error) {
-            const message = error.response?.data?.error || 'Error eliminant la regió';
-            toast.error(message);
-        }
-    };
-
-    const handleModalClose = (refresh) => {
-        setShowModal(false);
-        setSelectedRegio(null);
-        if (refresh) {
-            fetchRegions();
-        }
-    };
-
-    if (loading) {
-        return (
-            <div className="loading-container">
-                <p>Carregant...</p>
-            </div>
-        );
-    }
-
     return (
         <div className="home">
-            <Hero />
-
-            <div className="home-content">
-                <div className="home-header">
-                    <h2>Regions d'Espanya</h2>
-                    {isAuthenticated && (
-                        <button onClick={handleCreate} className="btn-create">
-                            + Afegir Regió
-                        </button>
-                    )}
+            <div className="home-hero">
+                <div className="home-hero-content">
+                    <h1>Els racons del pare</h1>
+                    <p>Tot el que sap, recorda i estima — en un sol lloc</p>
                 </div>
-
-                {regions.length === 0 ? (
-                    <div className="empty-state">
-                        <p>Encara no hi ha regions. {isAuthenticated && 'Afegeix la primera!'}</p>
-                    </div>
-                ) : (
-                    <div className="regions-grid">
-                        {regions.map((regio) => (
-                            <RegionCard
-                                key={regio.id}
-                                regio={regio}
-                                onEdit={handleEdit}
-                                onDelete={handleDelete}
-                            />
-                        ))}
-                    </div>
-                )}
             </div>
 
-            {showModal && (
-                <RegioModal
-                    regio={selectedRegio}
-                    onClose={handleModalClose}
-                />
-            )}
+            <div className="home-content">
+                <h2>Racons</h2>
+                <div className="racons-grid">
+                    {RACONS.map((raco) => (
+                        <RacoCard key={raco.slug} raco={raco} />
+                    ))}
+                </div>
+            </div>
         </div>
     );
+};
+
+const RacoCard = ({ raco }) => {
+    const inner = (
+        <div className={`raco-card ${!raco.actiu ? 'raco-card--aviat' : ''}`}>
+            <div className="raco-card-emoji">{raco.emoji}</div>
+            <div className="raco-card-body">
+                <h3>{raco.nom}</h3>
+                <p>{raco.descripcio}</p>
+            </div>
+            {!raco.actiu && <span className="raco-badge">Pròximament</span>}
+            {raco.actiu && <span className="raco-arrow">→</span>}
+        </div>
+    );
+
+    if (!raco.actiu) return inner;
+    return <Link to={raco.ruta} className="raco-link">{inner}</Link>;
 };
 
 export default Home;

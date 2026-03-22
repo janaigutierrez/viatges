@@ -1,0 +1,92 @@
+.viatges-page {
+    min-height: 100vh;
+    background: var(--bg-page);
+}
+
+.viatges-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 50px 20px 40px;
+    color: white;
+}
+
+.viatges-header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.viatges-header-content h1 {
+    margin: 12px 0 8px;
+    font-size: 42px;
+    font-weight: 700;
+}
+
+.viatges-header-content p {
+    margin: 0;
+    font-size: 16px;
+    opacity: 0.85;
+}
+
+.viatges-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.viatges-content-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.viatges-content-header h2 {
+    margin: 0;
+    font-size: 28px;
+    color: var(--text-primary);
+}
+
+.btn-create {
+    padding: 12px 24px;
+    background: #667eea;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-create:hover {
+    background: #5568d3;
+    transform: translateY(-2px);
+}
+
+.regions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--text-secondary);
+    font-size: 18px;
+}
+
+@media (max-width: 768px) {
+    .viatges-header-content h1 {
+        font-size: 32px;
+    }
+
+    .viatges-content-header {
+        flex-direction: column;
+        gap: 15px;
+        align-items: flex-start;
+    }
+
+    .regions-grid {
+        grid-template-columns: 1fr;
+    }
+}

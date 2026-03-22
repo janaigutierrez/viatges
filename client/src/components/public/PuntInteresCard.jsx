@@ -9,7 +9,7 @@ const PuntInteresCard = ({ punt, regioSlug, llocSlug, onEdit, onDelete }) => {
     return (
         <div className="punt-card-nav">
             <Link
-                to={`/regio/${regioSlug}/${llocSlug}/${punt.slug}`}
+                to={`/viatges/regio/${regioSlug}/${llocSlug}/${punt.slug}`}
                 className="punt-card-nav-link"
             >
                 <div className="punt-card-nav-image">

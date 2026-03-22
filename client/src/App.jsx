@@ -5,6 +5,7 @@ import { ThemeProvider } from './context/ThemeContext';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import Home from './pages/Home';
+import Viatges from './pages/Viatges';
 import Region from './pages/Region';
 import Lloc from './pages/Lloc';
 import PuntInteres from './pages/PuntInteres';
@@ -22,9 +23,10 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/admin" element={<AdminLogin />} />
-              <Route path="/regio/:regioSlug" element={<Region />} />
-              <Route path="/regio/:regioSlug/:llocSlug" element={<Lloc />} />
-              <Route path="/regio/:regioSlug/:llocSlug/:puntSlug" element={<PuntInteres />} />
+              <Route path="/viatges" element={<Viatges />} />
+              <Route path="/viatges/regio/:regioSlug" element={<Region />} />
+              <Route path="/viatges/regio/:regioSlug/:llocSlug" element={<Lloc />} />
+              <Route path="/viatges/regio/:regioSlug/:llocSlug/:puntSlug" element={<PuntInteres />} />
             </Routes>
           </main>
           <Footer />

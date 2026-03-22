@@ -81,7 +81,7 @@ const PuntInteres = () => {
         return (
             <div className="error-container">
                 <h2>Punt d'interès no trobat</h2>
-                <Link to={`/regio/${regioSlug}/${llocSlug}`} className="btn-back">
+                <Link to={`/viatges/regio/${regioSlug}/${llocSlug}`} className="btn-back">
                     Tornar a {llocSlug}
                 </Link>
             </div>
@@ -98,9 +98,9 @@ const PuntInteres = () => {
                 <div className="punt-hero-overlay">
                     <div className="punt-hero-content">
                         <div className="punt-breadcrumb">
-                            <Link to={`/regio/${regioSlug}`}>{punt.regio.nom}</Link>
+                            <Link to={`/viatges/regio/${regioSlug}`}>{punt.regio.nom}</Link>
                             <span> › </span>
-                            <Link to={`/regio/${regioSlug}/${llocSlug}`}>{punt.lloc.nom}</Link>
+                            <Link to={`/viatges/regio/${regioSlug}/${llocSlug}`}>{punt.lloc.nom}</Link>
                             <span> › </span>
                             <span>{punt.nom}</span>
                         </div>

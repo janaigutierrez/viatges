@@ -8,7 +8,7 @@ const LlocCard = ({ lloc, regioSlug, onEdit, onDelete }) => {
 
     return (
         <div className="lloc-card">
-            <Link to={`/regio/${regioSlug}/${lloc.slug}`} className="lloc-card-link">
+            <Link to={`/viatges/regio/${regioSlug}/${lloc.slug}`} className="lloc-card-link">
                 <div className="lloc-card-image">
                     <img src={getImageUrl(lloc.imatgePortada)} alt={lloc.nom} />
                 </div>
