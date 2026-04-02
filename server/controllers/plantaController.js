@@ -1,5 +1,6 @@
 const Planta = require('../models/Planta');
 const cloudinary = require('../config/cloudinary');
+const { uploadToCloudinary } = require('../middleware/upload');
 
 // Funció helper per extreure public_id de la URL de Cloudinary
 const getPublicIdFromUrl = (url) => {
@@ -58,7 +59,7 @@ const createPlanta = async (req, res, next) => {
             });
         }
 
-        const imatgePortada = req.file ? req.file.secure_url || req.file.path : null;
+        const imatgePortada = req.file ? await uploadToCloudinary(req.file) : null;
 
         const planta = await Planta.create({
             nom,
@@ -85,9 +86,6 @@ const updatePlanta = async (req, res, next) => {
         const planta = await Planta.findById(req.params.id);
 
         if (!planta) {
-            if (req.file) {
-                await cloudinary.uploader.destroy(getPublicIdFromUrl(req.file.secure_url || req.file.path)).catch(() => {});
-            }
             return res.status(404).json({
                 error: 'Planta no trobada'
             });
@@ -105,16 +103,13 @@ const updatePlanta = async (req, res, next) => {
         planta.ordre = ordre !== undefined ? ordre : planta.ordre;
 
         if (req.file) {
-            planta.imatgePortada = req.file.secure_url || req.file.path;
+            planta.imatgePortada = await uploadToCloudinary(req.file);
         }
 
         await planta.save();
 
         res.json(planta);
     } catch (error) {
-        if (req.file) {
-            await cloudinary.uploader.destroy(getPublicIdFromUrl(req.file.secure_url || req.file.path)).catch(() => {});
-        }
         next(error);
     }
 };

@@ -1,8 +1,7 @@
 const Regio = require('../models/Regio');
 const Lloc = require('../models/Lloc');
-const fs = require('fs').promises;
-const path = require('path');
-const cloudinary = require('../config/cloudinary')
+const cloudinary = require('../config/cloudinary');
+const { uploadToCloudinary } = require('../middleware/upload');
 
 // Funció helper per extreure public_id de la URL de Cloudinary
 const getPublicIdFromUrl = (url) => {
@@ -57,8 +56,7 @@ const createRegio = async (req, res, next) => {
             });
         }
 
-        // Si hi ha imatge, obtenir la URL completa de Cloudinary
-        const imatgePortada = req.file ? req.file.secure_url || req.file.path : null; // req.file.secure_url || req.file.path té la URL completa!
+        const imatgePortada = req.file ? await uploadToCloudinary(req.file) : null;
 
         const regio = await Regio.create({
             nom,
@@ -83,9 +81,6 @@ const updateRegio = async (req, res, next) => {
         const regio = await Regio.findById(req.params.id);
 
         if (!regio) {
-            if (req.file) {
-                await cloudinary.uploader.destroy(getPublicIdFromUrl(req.file.secure_url || req.file.path)).catch(() => { });
-            }
             return res.status(404).json({
                 error: 'Regió no trobada'
             });
@@ -102,16 +97,13 @@ const updateRegio = async (req, res, next) => {
         regio.ordre = ordre !== undefined ? ordre : regio.ordre;
 
         if (req.file) {
-            regio.imatgePortada = req.file.secure_url || req.file.path;
+            regio.imatgePortada = await uploadToCloudinary(req.file);
         }
 
         await regio.save();
 
         res.json(regio);
     } catch (error) {
-        if (req.file) {
-            await cloudinary.uploader.destroy(getPublicIdFromUrl(req.file.secure_url || req.file.path)).catch(() => { });
-        }
         next(error);
     }
 };

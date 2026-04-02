@@ -1,25 +1,11 @@
 const multer = require('multer');
-const CloudinaryStorage = require('multer-storage-cloudinary');
-const cloudinary = require('cloudinary');
-// Assegurar que la config de Cloudinary s'aplica
-require('../config/cloudinary');
+const cloudinary = require('../config/cloudinary');
 
-// Configurar Cloudinary storage
-const storage = new CloudinaryStorage({
-    cloudinary: cloudinary,
-    params: {
-        folder: 'viatges', // Carpeta a Cloudinary
-        allowed_formats: ['jpg', 'jpeg', 'png', 'gif', 'webp'],
-        transformation: [
-            { width: 1200, height: 800, crop: 'limit' }, // Redimensiona si és massa gran
-            { quality: 'auto' } // Compressió automàtica
-        ],
-    },
-});
+// Multer amb memòria (sense multer-storage-cloudinary)
+const storage = multer.memoryStorage();
 
-// Configuració de Multer amb Cloudinary
 const upload = multer({
-    storage: storage,
+    storage,
     limits: {
         fileSize: 5 * 1024 * 1024, // Màxim 5MB
     },
@@ -34,5 +20,28 @@ const upload = multer({
         }
     },
 });
+
+// Helper: puja un buffer a Cloudinary i retorna la secure_url
+const uploadToCloudinary = (file) => {
+    return new Promise((resolve, reject) => {
+        const stream = cloudinary.uploader.upload_stream(
+            {
+                folder: 'viatges',
+                allowed_formats: ['jpg', 'jpeg', 'png', 'gif', 'webp'],
+                transformation: [
+                    { width: 1200, height: 800, crop: 'limit' },
+                    { quality: 'auto' }
+                ],
+            },
+            (error, result) => {
+                if (error) reject(error);
+                else resolve(result.secure_url);
+            }
+        );
+        stream.end(file.buffer);
+    });
+};
+
+upload.uploadToCloudinary = uploadToCloudinary;
 
 module.exports = upload;

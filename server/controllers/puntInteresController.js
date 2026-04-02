@@ -2,6 +2,7 @@ const PuntInteres = require('../models/PuntInteres');
 const Lloc = require('../models/Lloc');
 const Regio = require('../models/Regio');
 const cloudinary = require('../config/cloudinary');
+const { uploadToCloudinary } = require('../middleware/upload');
 
 const getPublicIdFromUrl = (url) => {
     const parts = url.split('/');
@@ -74,17 +75,15 @@ const createPuntInteres = async (req, res, next) => {
 
         const llocExists = await Lloc.findById(lloc);
         if (!llocExists) {
-            if (req.file) await cloudinary.uploader.destroy(getPublicIdFromUrl(req.file.secure_url || req.file.secure_url || file.path)).catch(() => {});
             return res.status(404).json({ error: 'Lloc no trobat' });
         }
 
         const regioExists = await Regio.findById(regio);
         if (!regioExists) {
-            if (req.file) await cloudinary.uploader.destroy(getPublicIdFromUrl(req.file.secure_url || req.file.secure_url || file.path)).catch(() => {});
             return res.status(404).json({ error: 'Regió no trobada' });
         }
 
-        const imatgePortada = req.file ? req.file.secure_url || req.file.secure_url || file.path : null;
+        const imatgePortada = req.file ? await uploadToCloudinary(req.file) : null;
 
         const punt = await PuntInteres.create({
             nom,
@@ -102,7 +101,6 @@ const createPuntInteres = async (req, res, next) => {
 
         res.status(201).json(punt);
     } catch (error) {
-        if (req.file) await cloudinary.uploader.destroy(getPublicIdFromUrl(req.file.secure_url || req.file.secure_url || file.path)).catch(() => {});
         next(error);
     }
 };
@@ -116,7 +114,6 @@ const updatePuntInteres = async (req, res, next) => {
 
         const punt = await PuntInteres.findById(req.params.id);
         if (!punt) {
-            if (req.file) await cloudinary.uploader.destroy(getPublicIdFromUrl(req.file.secure_url || req.file.secure_url || file.path)).catch(() => {});
             return res.status(404).json({ error: 'Punt d\'interès no trobat' });
         }
 
@@ -130,7 +127,7 @@ const updatePuntInteres = async (req, res, next) => {
         punt.ordre = ordre !== undefined ? ordre : punt.ordre;
 
         if (req.file) {
-            punt.imatgePortada = req.file.secure_url || req.file.secure_url || file.path;
+            punt.imatgePortada = await uploadToCloudinary(req.file);
         }
 
         await punt.save();
@@ -139,7 +136,6 @@ const updatePuntInteres = async (req, res, next) => {
 
         res.json(punt);
     } catch (error) {
-        if (req.file) await cloudinary.uploader.destroy(getPublicIdFromUrl(req.file.secure_url || req.file.secure_url || file.path)).catch(() => {});
         next(error);
     }
 };
@@ -151,27 +147,21 @@ const addImatgesGaleriaPunt = async (req, res, next) => {
     try {
         const punt = await PuntInteres.findById(req.params.id);
         if (!punt) {
-            if (req.files) {
-                for (const file of req.files) {
-                    await cloudinary.uploader.destroy(getPublicIdFromUrl(file.secure_url || file.path)).catch(() => {});
-                }
-            }
             return res.status(404).json({ error: 'Punt d\'interès no trobat' });
         }
 
         if (req.files && req.files.length > 0) {
-            const novaImatges = req.files.map(file => file.secure_url || file.path);
+            const novaImatges = [];
+            for (const file of req.files) {
+                const url = await uploadToCloudinary(file);
+                novaImatges.push(url);
+            }
             punt.galeriaImatges.push(...novaImatges);
             await punt.save();
         }
 
         res.json(punt);
     } catch (error) {
-        if (req.files) {
-            for (const file of req.files) {
-                await cloudinary.uploader.destroy(getPublicIdFromUrl(file.secure_url || file.path)).catch(() => {});
-            }
-        }
         next(error);
     }
 };
