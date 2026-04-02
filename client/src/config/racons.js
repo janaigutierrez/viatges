@@ -20,7 +20,7 @@ export const RACONS = [
         nom: 'Plantes',
         emoji: '🌿',
         descripcio: 'Cria, hibridació i cuidado de plantes',
-        actiu: false,
+        actiu: true,
         ruta: '/plantes',
     },
     {

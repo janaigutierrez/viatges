@@ -100,4 +100,22 @@ export const deleteImatgeGaleriaPunt = (id, imatgeUrl) => {
 };
 export const deletePuntInteres = (id) => api.delete(`/punts/${id}`);
 
+// PLANTES
+export const getPlantes = (etiqueta) => {
+    const url = etiqueta ? `/plantes?etiqueta=${etiqueta}` : '/plantes';
+    return api.get(url);
+};
+export const getPlantaById = (id) => api.get(`/plantes/${id}`);
+export const createPlanta = (formData) => {
+    return api.post('/plantes', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+    });
+};
+export const updatePlanta = (id, formData) => {
+    return api.put(`/plantes/${id}`, formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+    });
+};
+export const deletePlanta = (id) => api.delete(`/plantes/${id}`);
+
 export default api;

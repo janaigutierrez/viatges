@@ -1,0 +1,115 @@
+.planta-card {
+    background: var(--bg-card);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px var(--shadow-sm);
+    transition: transform 0.3s, box-shadow 0.3s, background 0.2s;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.planta-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px var(--shadow-md);
+}
+
+.planta-card-image {
+    width: 100%;
+    height: 220px;
+    overflow: hidden;
+    background: var(--image-placeholder);
+    position: relative;
+}
+
+.planta-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s;
+}
+
+.planta-card:hover .planta-card-image img {
+    transform: scale(1.05);
+}
+
+.planta-card-tag {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    color: white;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: capitalize;
+    letter-spacing: 0.5px;
+}
+
+.planta-card-content {
+    padding: 20px;
+    flex: 1;
+}
+
+.planta-card-content h3 {
+    margin: 0 0 4px;
+    font-size: 20px;
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.planta-card-llati {
+    margin: 0 0 10px;
+    font-size: 14px;
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+.planta-card-desc {
+    margin: 0;
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.planta-card-actions {
+    display: flex;
+    gap: 10px;
+    padding: 15px;
+    background: var(--bg-card-alt);
+    border-top: 1px solid var(--border);
+}
+
+.planta-card-actions .btn-edit,
+.planta-card-actions .btn-delete {
+    flex: 1;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.planta-card-actions .btn-edit {
+    background: #667eea;
+    color: white;
+}
+
+.planta-card-actions .btn-edit:hover {
+    background: #5568d3;
+}
+
+.planta-card-actions .btn-delete {
+    background: #f56565;
+    color: white;
+}
+
+.planta-card-actions .btn-delete:hover {
+    background: #e53e3e;
+}

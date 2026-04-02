@@ -36,6 +36,7 @@ app.use('/api/auth', require('./routes/auth'));
 app.use('/api/regions', require('./routes/regions'));
 app.use('/api/llocs', require('./routes/llocs'));
 app.use('/api/punts', require('./routes/punts'));
+app.use('/api/plantes', require('./routes/plantes'));
 
 // Error handler
 app.use(errorHandler);
