@@ -7,7 +7,7 @@ const Home = () => {
         <div className="home">
             <div className="home-hero">
                 <div className="home-hero-content">
-                    <h1>Els racons del Jose Luis</h1>
+                    <h1>Desastre de cajón</h1>
                 </div>
             </div>
 

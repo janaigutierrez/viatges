@@ -6,6 +6,8 @@ export const RACONS = [
         descripcio: 'Regions, pobles i llocs d\'interès visitats',
         actiu: true,
         ruta: '/viatges',
+        color: '#4f6d7a',
+        gradient: 'linear-gradient(135deg, #4f6d7a 0%, #6b8f9e 100%)',
     },
     {
         slug: 'cuina',
@@ -14,6 +16,8 @@ export const RACONS = [
         descripcio: 'Receptes, tradicions culinàries i secrets de la cuina',
         actiu: false,
         ruta: '/cuina',
+        color: '#c1666b',
+        gradient: 'linear-gradient(135deg, #c1666b 0%, #d4888c 100%)',
     },
     {
         slug: 'plantes',
@@ -22,6 +26,8 @@ export const RACONS = [
         descripcio: 'Cria, hibridació i cuidado de plantes',
         actiu: true,
         ruta: '/plantes',
+        color: '#48734c',
+        gradient: 'linear-gradient(135deg, #48734c 0%, #6a9b6e 100%)',
     },
     {
         slug: 'bricolatge',
@@ -30,5 +36,7 @@ export const RACONS = [
         descripcio: 'Projectes de bricolatge, construcció i reparació',
         actiu: false,
         ruta: '/bricolatge',
+        color: '#8b6f47',
+        gradient: 'linear-gradient(135deg, #8b6f47 0%, #a8895e 100%)',
     },
 ];
