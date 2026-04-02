@@ -58,7 +58,7 @@ const createRegio = async (req, res, next) => {
         }
 
         // Si hi ha imatge, obtenir la URL completa de Cloudinary
-        const imatgePortada = req.file ? req.file.path : null; // req.file.path té la URL completa!
+        const imatgePortada = req.file ? req.file.secure_url || req.file.path : null; // req.file.secure_url || req.file.path té la URL completa!
 
         const regio = await Regio.create({
             nom,
@@ -84,7 +84,7 @@ const updateRegio = async (req, res, next) => {
 
         if (!regio) {
             if (req.file) {
-                await cloudinary.uploader.destroy(getPublicIdFromUrl(req.file.path)).catch(() => { });
+                await cloudinary.uploader.destroy(getPublicIdFromUrl(req.file.secure_url || req.file.path)).catch(() => { });
             }
             return res.status(404).json({
                 error: 'Regió no trobada'
@@ -102,7 +102,7 @@ const updateRegio = async (req, res, next) => {
         regio.ordre = ordre !== undefined ? ordre : regio.ordre;
 
         if (req.file) {
-            regio.imatgePortada = req.file.path;
+            regio.imatgePortada = req.file.secure_url || req.file.path;
         }
 
         await regio.save();
@@ -110,7 +110,7 @@ const updateRegio = async (req, res, next) => {
         res.json(regio);
     } catch (error) {
         if (req.file) {
-            await cloudinary.uploader.destroy(getPublicIdFromUrl(req.file.path)).catch(() => { });
+            await cloudinary.uploader.destroy(getPublicIdFromUrl(req.file.secure_url || req.file.path)).catch(() => { });
         }
         next(error);
     }

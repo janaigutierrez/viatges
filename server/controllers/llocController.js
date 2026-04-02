@@ -93,7 +93,7 @@ const createLloc = async (req, res, next) => {
         }
 
         // Si hi ha imatge, obtenir la ruta
-        const imatgePortada = req.file ? req.file.path : null;
+        const imatgePortada = req.file ? req.file.secure_url || req.file.secure_url || file.path : null;
 
         // Parsear puntsInteres si ve com a string (des d'un FormData)
         let parsedPuntsInteres = [];
@@ -139,7 +139,7 @@ const updateLloc = async (req, res, next) => {
         if (!lloc) {
             // Si s'ha pujat una nova imatge i no existeix el lloc, eliminar-la de Cloudinary
             if (req.file) {
-                await cloudinary.uploader.destroy(getPublicIdFromUrl(req.file.path)).catch(() => { });
+                await cloudinary.uploader.destroy(getPublicIdFromUrl(req.file.secure_url || req.file.secure_url || file.path)).catch(() => { });
             }
             return res.status(404).json({
                 error: 'Lloc no trobat'
@@ -151,7 +151,7 @@ const updateLloc = async (req, res, next) => {
             const regioExists = await Regio.findById(regio);
             if (!regioExists) {
                 if (req.file) {
-                    await cloudinary.uploader.destroy(getPublicIdFromUrl(req.file.path)).catch(() => { });
+                    await cloudinary.uploader.destroy(getPublicIdFromUrl(req.file.secure_url || req.file.secure_url || file.path)).catch(() => { });
                 }
                 return res.status(404).json({
                     error: 'Regió no trobada'
@@ -172,7 +172,7 @@ const updateLloc = async (req, res, next) => {
         lloc.ordre = ordre !== undefined ? ordre : lloc.ordre;
 
         if (req.file) {
-            lloc.imatgePortada = req.file.path;
+            lloc.imatgePortada = req.file.secure_url || req.file.secure_url || file.path;
         }
 
         // Actualitzar puntsInteres si ve
@@ -189,7 +189,7 @@ const updateLloc = async (req, res, next) => {
     } catch (error) {
         // Si hi ha error i s'ha pujat nova imatge, eliminar-la de Cloudinary
         if (req.file) {
-            await cloudinary.uploader.destroy(getPublicIdFromUrl(req.file.path)).catch(() => { });
+            await cloudinary.uploader.destroy(getPublicIdFromUrl(req.file.secure_url || req.file.secure_url || file.path)).catch(() => { });
         }
         next(error);
     }
@@ -216,7 +216,7 @@ const addImatgesGaleria = async (req, res, next) => {
 
         // Afegir les noves imatges a la galeria
         if (req.files && req.files.length > 0) {
-            const novaImatges = req.files.map(file => file.path);
+            const novaImatges = req.files.map(file => file.secure_url || file.path);
             lloc.galeriaImatges.push(...novaImatges);
             await lloc.save();
         }

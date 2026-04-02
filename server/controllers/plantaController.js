@@ -58,7 +58,7 @@ const createPlanta = async (req, res, next) => {
             });
         }
 
-        const imatgePortada = req.file ? req.file.path : null;
+        const imatgePortada = req.file ? req.file.secure_url || req.file.path : null;
 
         const planta = await Planta.create({
             nom,
@@ -86,7 +86,7 @@ const updatePlanta = async (req, res, next) => {
 
         if (!planta) {
             if (req.file) {
-                await cloudinary.uploader.destroy(getPublicIdFromUrl(req.file.path)).catch(() => {});
+                await cloudinary.uploader.destroy(getPublicIdFromUrl(req.file.secure_url || req.file.path)).catch(() => {});
             }
             return res.status(404).json({
                 error: 'Planta no trobada'
@@ -105,7 +105,7 @@ const updatePlanta = async (req, res, next) => {
         planta.ordre = ordre !== undefined ? ordre : planta.ordre;
 
         if (req.file) {
-            planta.imatgePortada = req.file.path;
+            planta.imatgePortada = req.file.secure_url || req.file.path;
         }
 
         await planta.save();
@@ -113,7 +113,7 @@ const updatePlanta = async (req, res, next) => {
         res.json(planta);
     } catch (error) {
         if (req.file) {
-            await cloudinary.uploader.destroy(getPublicIdFromUrl(req.file.path)).catch(() => {});
+            await cloudinary.uploader.destroy(getPublicIdFromUrl(req.file.secure_url || req.file.path)).catch(() => {});
         }
         next(error);
     }
