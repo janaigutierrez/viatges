@@ -16,7 +16,7 @@ const app = express();
 app.use(cors({
     origin: [
         'http://localhost:5173',
-        'https://viatges.netlify.app'
+        'https://desastredecajon.netlify.app'
     ],
     credentials: true
 }));
