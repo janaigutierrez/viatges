@@ -76,7 +76,7 @@
 
 .btn-edit-main {
     padding: 12px 24px;
-    background: #667eea;
+    background: #4f6d7a;
     color: white;
     border: none;
     border-radius: 8px;
@@ -87,7 +87,7 @@
 }
 
 .btn-edit-main:hover {
-    background: #5568d3;
+    background: #3d5a66;
     transform: translateY(-2px);
 }
 
@@ -115,7 +115,7 @@
     color: var(--text-primary);
     margin: 0;
     padding-bottom: 10px;
-    border-bottom: 3px solid #667eea;
+    border-bottom: 3px solid #4f6d7a;
 }
 
 .btn-upload-galeria {
@@ -201,7 +201,7 @@
 
 .btn-back {
     padding: 12px 24px;
-    background: #667eea;
+    background: #4f6d7a;
     color: white;
     text-decoration: none;
     border-radius: 8px;
@@ -210,7 +210,7 @@
 }
 
 .btn-back:hover {
-    background: #5568d3;
+    background: #3d5a66;
 }
 
 @media (max-width: 768px) {

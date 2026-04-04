@@ -4,7 +4,7 @@
 }
 
 .region-header {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #4f6d7a 0%, #6b8f9e 100%);
     padding: 60px 20px 40px;
     color: white;
 }
@@ -54,7 +54,7 @@
 
 .btn-create {
     padding: 12px 24px;
-    background: #667eea;
+    background: #4f6d7a;
     color: white;
     border: none;
     border-radius: 8px;
@@ -94,7 +94,7 @@
 
 .btn-back {
     padding: 12px 24px;
-    background: #667eea;
+    background: #4f6d7a;
     color: white;
     text-decoration: none;
     border-radius: 8px;

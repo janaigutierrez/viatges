@@ -95,9 +95,10 @@ const Plantes = () => {
     return (
         <div className="plantes-page">
             <div className="plantes-header">
+                <div className="plantes-header-texture"></div>
                 <div className="plantes-header-content">
                     <Link to="/" className="breadcrumb">← Tots els racons</Link>
-                    <h1>🌿 Plantes</h1>
+                    <h1>Plantes</h1>
                     <p>Cria, hibridació i cuidado de plantes</p>
                 </div>
             </div>

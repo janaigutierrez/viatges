@@ -18,7 +18,7 @@ const PlantaCard = ({ planta, onEdit, onDelete }) => {
                 <img src={getImageUrl(planta.imatgePortada)} alt={planta.nom} />
                 <span
                     className="planta-card-tag"
-                    style={{ background: ETIQUETA_COLORS[planta.etiqueta] || '#667eea' }}
+                    style={{ background: ETIQUETA_COLORS[planta.etiqueta] || '#48734c' }}
                 >
                     {planta.etiqueta}
                 </span>

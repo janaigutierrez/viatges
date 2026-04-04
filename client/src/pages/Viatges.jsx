@@ -65,9 +65,10 @@ const Viatges = () => {
     return (
         <div className="viatges-page">
             <div className="viatges-header">
+                <div className="viatges-header-texture"></div>
                 <div className="viatges-header-content">
                     <Link to="/" className="breadcrumb">← Tots els racons</Link>
-                    <h1>🗺️ Viatges</h1>
+                    <h1>Viatges</h1>
                     <p>Regions, pobles i llocs d'interès visitats</p>
                 </div>
             </div>

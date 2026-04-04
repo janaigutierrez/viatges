@@ -97,12 +97,12 @@
 }
 
 .planta-card-actions .btn-edit {
-    background: #667eea;
+    background: #48734c;
     color: white;
 }
 
 .planta-card-actions .btn-edit:hover {
-    background: #5568d3;
+    background: #3a5f3e;
 }
 
 .planta-card-actions .btn-delete {

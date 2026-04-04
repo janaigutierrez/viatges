@@ -100,7 +100,7 @@
 .form-group select:focus,
 .form-group textarea:focus {
     outline: none;
-    border-color: #667eea;
+    border-color: #4a4a4a;
 }
 
 .form-group small {
@@ -131,7 +131,7 @@
 
 .btn-add-small {
     padding: 8px 16px;
-    background: #667eea;
+    background: #4a4a4a;
     color: white;
     border: none;
     border-radius: 6px;
@@ -142,7 +142,7 @@
 }
 
 .btn-add-small:hover {
-    background: #5568d3;
+    background: #3a3a3a;
 }
 
 .punt-item {
@@ -214,12 +214,12 @@
 }
 
 .btn-submit {
-    background: #667eea;
+    background: #4a4a4a;
     color: white;
 }
 
 .btn-submit:hover:not(:disabled) {
-    background: #5568d3;
+    background: #3a3a3a;
     transform: translateY(-2px);
 }
 

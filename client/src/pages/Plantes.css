@@ -4,12 +4,30 @@
 }
 
 .plantes-header {
-    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    position: relative;
+    background: #48734c;
     padding: 50px 20px 40px;
     color: white;
+    overflow: hidden;
+}
+
+/* Textura botànica — fulles abstractes */
+.plantes-header-texture {
+    position: absolute;
+    inset: 0;
+    opacity: 0.06;
+    background-image:
+        radial-gradient(ellipse 80px 120px at 15% 40%, rgba(255, 255, 255, 0.6) 0%, transparent 60%),
+        radial-gradient(ellipse 60px 100px at 85% 25%, rgba(255, 255, 255, 0.5) 0%, transparent 60%),
+        radial-gradient(ellipse 70px 110px at 45% 75%, rgba(255, 255, 255, 0.5) 0%, transparent 60%),
+        radial-gradient(ellipse 50px 90px at 70% 60%, rgba(255, 255, 255, 0.4) 0%, transparent 60%),
+        radial-gradient(ellipse 90px 130px at 30% 15%, rgba(255, 255, 255, 0.4) 0%, transparent 60%);
+    pointer-events: none;
 }
 
 .plantes-header-content {
+    position: relative;
+    z-index: 1;
     max-width: 1200px;
     margin: 0 auto;
 }
@@ -17,13 +35,14 @@
 .plantes-header-content h1 {
     margin: 12px 0 8px;
     font-size: 42px;
-    font-weight: 700;
+    font-weight: 800;
+    letter-spacing: -0.5px;
 }
 
 .plantes-header-content p {
     margin: 0;
     font-size: 16px;
-    opacity: 0.85;
+    opacity: 0.75;
 }
 
 .plantes-content {
@@ -45,7 +64,24 @@
     color: var(--text-primary);
 }
 
-/* Toolbar: filtres + cerca */
+.plantes-content-header .btn-create {
+    padding: 12px 24px;
+    background: #48734c;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.plantes-content-header .btn-create:hover {
+    background: #3a5f3e;
+    transform: translateY(-2px);
+}
+
+/* ── Toolbar: filtres + cerca ── */
 .plantes-toolbar {
     display: flex;
     justify-content: space-between;
@@ -74,13 +110,13 @@
 }
 
 .filter-btn:hover {
-    border-color: #10b981;
-    color: #10b981;
+    border-color: #48734c;
+    color: #48734c;
 }
 
 .filter-btn.active {
-    background: #10b981;
-    border-color: #10b981;
+    background: #48734c;
+    border-color: #48734c;
     color: white;
 }
 
@@ -103,14 +139,14 @@
 
 .search-input:focus {
     outline: none;
-    border-color: #10b981;
+    border-color: #48734c;
 }
 
 .search-input::placeholder {
     color: var(--text-secondary);
 }
 
-/* Grid de plantes */
+/* ── Grid de plantes ── */
 .plantes-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));

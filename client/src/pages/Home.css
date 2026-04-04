@@ -3,48 +3,83 @@
     background: var(--bg-page);
 }
 
-/* Hero */
+/* ── Hero ── */
 .home-hero {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    padding: 80px 20px;
+    position: relative;
+    padding: 100px 20px 80px;
     text-align: center;
     color: white;
+    background: #3a3a3a;
+    overflow: hidden;
+}
+
+.home-hero-texture {
+    position: absolute;
+    inset: 0;
+    opacity: 0.06;
+    background-image:
+        repeating-linear-gradient(
+            45deg,
+            transparent,
+            transparent 20px,
+            rgba(255, 255, 255, 0.5) 20px,
+            rgba(255, 255, 255, 0.5) 21px
+        ),
+        repeating-linear-gradient(
+            -45deg,
+            transparent,
+            transparent 20px,
+            rgba(255, 255, 255, 0.5) 20px,
+            rgba(255, 255, 255, 0.5) 21px
+        );
+    pointer-events: none;
+}
+
+.home-hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 700px;
+    margin: 0 auto;
 }
 
 .home-hero-content h1 {
-    margin: 0 0 12px;
-    font-size: 48px;
-    font-weight: 700;
-    letter-spacing: -0.5px;
+    margin: 0 0 16px;
+    font-size: 52px;
+    font-weight: 800;
+    letter-spacing: -1px;
+    line-height: 1.1;
+    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
 }
 
 .home-hero-content p {
     margin: 0;
-    font-size: 20px;
-    opacity: 0.85;
+    font-size: 18px;
+    opacity: 0.7;
+    font-weight: 300;
+    letter-spacing: 0.3px;
 }
 
-/* Contingut */
+/* ── Contingut ── */
 .home-content {
     max-width: 900px;
     margin: 0 auto;
-    padding: 60px 20px;
+    padding: 60px 20px 80px;
 }
 
 .home-content h2 {
     margin: 0 0 30px;
-    font-size: 22px;
-    font-weight: 600;
+    font-size: 13px;
+    font-weight: 700;
     color: var(--text-muted);
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 2px;
 }
 
-/* Grid de racons */
+/* ── Grid de racons ── */
 .racons-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
-    gap: 20px;
+    gap: 16px;
 }
 
 .raco-link {
@@ -53,34 +88,50 @@
     display: block;
 }
 
+/* Card base */
 .raco-card {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    background: var(--bg-card);
-    border-radius: 16px;
-    padding: 24px;
-    box-shadow: 0 4px 15px var(--shadow-sm);
-    transition: transform 0.25s, box-shadow 0.25s, background 0.2s;
     position: relative;
+    background: var(--bg-card);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px var(--shadow-sm);
+    transition: transform 0.25s, box-shadow 0.25s, background 0.2s;
     border: 1px solid var(--border);
 }
 
 .raco-link:hover .raco-card {
-    transform: translateY(-4px);
-    box-shadow: 0 10px 30px var(--shadow-md);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px var(--shadow-md);
 }
 
 .raco-card--aviat {
-    opacity: 0.6;
+    opacity: 0.55;
     cursor: default;
 }
 
+/* Accent lateral per secció */
+.raco-card-accent {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: var(--raco-color);
+    border-radius: 12px 0 0 12px;
+}
+
+.raco-card-inner {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 22px 22px 22px 26px;
+}
+
 .raco-card-emoji {
-    font-size: 44px;
+    font-size: 36px;
     line-height: 1;
     flex-shrink: 0;
-    width: 64px;
+    width: 48px;
     text-align: center;
 }
 
@@ -90,27 +141,27 @@
 }
 
 .raco-card-body h3 {
-    margin: 0 0 6px;
-    font-size: 20px;
+    margin: 0 0 4px;
+    font-size: 18px;
     font-weight: 700;
     color: var(--text-primary);
 }
 
 .raco-card-body p {
     margin: 0;
-    font-size: 14px;
+    font-size: 13px;
     color: var(--text-secondary);
     line-height: 1.5;
 }
 
 .raco-badge {
     position: absolute;
-    top: 14px;
-    right: 14px;
+    top: 12px;
+    right: 12px;
     background: var(--bg-card-alt);
     color: var(--text-muted);
-    font-size: 11px;
-    font-weight: 600;
+    font-size: 10px;
+    font-weight: 700;
     padding: 3px 10px;
     border-radius: 20px;
     border: 1px solid var(--border);
@@ -119,10 +170,11 @@
 }
 
 .raco-arrow {
-    font-size: 22px;
-    color: #667eea;
+    font-size: 20px;
+    color: var(--raco-color);
     flex-shrink: 0;
     transition: transform 0.2s;
+    font-weight: 600;
 }
 
 .raco-link:hover .raco-arrow {
@@ -130,12 +182,16 @@
 }
 
 @media (max-width: 768px) {
+    .home-hero {
+        padding: 70px 20px 60px;
+    }
+
     .home-hero-content h1 {
-        font-size: 32px;
+        font-size: 36px;
     }
 
     .home-hero-content p {
-        font-size: 16px;
+        font-size: 15px;
     }
 
     .racons-grid {
