@@ -101,9 +101,12 @@ export const deleteImatgeGaleriaPunt = (id, imatgeUrl) => {
 export const deletePuntInteres = (id) => api.delete(`/punts/${id}`);
 
 // PLANTES
-export const getPlantes = (etiqueta) => {
-    const url = etiqueta ? `/plantes?etiqueta=${etiqueta}` : '/plantes';
-    return api.get(url);
+export const getPlantes = (filters = {}) => {
+    const params = new URLSearchParams();
+    if (filters.etiqueta) params.append('etiqueta', filters.etiqueta);
+    if (filters.ubicacio) params.append('ubicacio', filters.ubicacio);
+    const qs = params.toString();
+    return api.get(qs ? `/plantes?${qs}` : '/plantes');
 };
 export const getPlantaById = (id) => api.get(`/plantes/${id}`);
 export const createPlanta = (formData) => {
@@ -117,5 +120,32 @@ export const updatePlanta = (id, formData) => {
     });
 };
 export const deletePlanta = (id) => api.delete(`/plantes/${id}`);
+
+// SECCIONS (descripcions editables)
+export const getSeccioInfo = (slug) => api.get(`/seccions/${slug}`);
+export const updateSeccioInfo = (slug, descripcio) => api.put(`/seccions/${slug}`, { descripcio });
+
+// HORTICULTURA
+export const getEntradesHorticultura = () => api.get('/horticultura');
+export const getEntradaHorticulturaBySlug = (slug) => api.get(`/horticultura/${slug}`);
+export const createEntradaHorticultura = (formData) => {
+    return api.post('/horticultura', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+    });
+};
+export const updateEntradaHorticultura = (id, formData) => {
+    return api.put(`/horticultura/${id}`, formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+    });
+};
+export const addImatgesGaleriaHorticultura = (id, formData) => {
+    return api.post(`/horticultura/${id}/galeria`, formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+    });
+};
+export const deleteImatgeGaleriaHorticultura = (id, imatgeUrl) => {
+    return api.delete(`/horticultura/${id}/galeria`, { data: { imatgeUrl } });
+};
+export const deleteEntradaHorticultura = (id) => api.delete(`/horticultura/${id}`);
 
 export default api;

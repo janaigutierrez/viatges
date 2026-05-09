@@ -1,9 +1,9 @@
 export const RACONS = [
     {
         slug: 'viatges',
-        nom: 'Viatges',
+        nom: 'Viajes',
         emoji: '🗺️',
-        descripcio: 'Regions, pobles i llocs d\'interès visitats',
+        descripcio: 'Regiones, pueblos y lugares de interés visitados',
         actiu: true,
         ruta: '/viatges',
         color: '#4f6d7a',
@@ -11,9 +11,9 @@ export const RACONS = [
     },
     {
         slug: 'cuina',
-        nom: 'Cuina',
+        nom: 'Cocina',
         emoji: '🍳',
-        descripcio: 'Receptes, tradicions culinàries i secrets de la cuina',
+        descripcio: 'Recetas, tradiciones culinarias y secretos de la cocina',
         actiu: false,
         ruta: '/cuina',
         color: '#c1666b',
@@ -21,9 +21,9 @@ export const RACONS = [
     },
     {
         slug: 'plantes',
-        nom: 'Plantes',
+        nom: 'Plantas',
         emoji: '🌿',
-        descripcio: 'Cria, hibridació i cuidado de plantes',
+        descripcio: 'Cría, hibridación y curas de plantas',
         actiu: true,
         ruta: '/plantes',
         color: '#48734c',
@@ -31,9 +31,9 @@ export const RACONS = [
     },
     {
         slug: 'bricolatge',
-        nom: 'Bricolatge',
+        nom: 'Bricolaje',
         emoji: '🔧',
-        descripcio: 'Projectes de bricolatge, construcció i reparació',
+        descripcio: 'Proyectos de bricolaje, construcción y reparación',
         actiu: false,
         ruta: '/bricolatge',
         color: '#8b6f47',

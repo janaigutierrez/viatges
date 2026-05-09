@@ -61,7 +61,7 @@ const Navbar = () => {
                             onClick={() => setIsRaconsOpen(!isRaconsOpen)}
                             aria-expanded={isRaconsOpen}
                         >
-                            Racons <span className={`dropdown-arrow ${isRaconsOpen ? 'open' : ''}`}>▾</span>
+                            Rincones <span className={`dropdown-arrow ${isRaconsOpen ? 'open' : ''}`}>▾</span>
                         </button>
 
                         <div className={`navbar-dropdown-menu ${isRaconsOpen ? 'open' : ''}`}>
@@ -79,7 +79,7 @@ const Navbar = () => {
                                     <div key={raco.slug} className="dropdown-item dropdown-item--disabled">
                                         <span className="dropdown-item-emoji">{raco.emoji}</span>
                                         <span>{raco.nom}</span>
-                                        <span className="dropdown-item-badge">Aviat</span>
+                                        <span className="dropdown-item-badge">Pronto</span>
                                     </div>
                                 )
                             ))}
@@ -89,8 +89,8 @@ const Navbar = () => {
                     <button
                         className="btn-theme-toggle"
                         onClick={toggleTheme}
-                        aria-label="Canviar tema"
-                        title={theme === 'light' ? 'Mode fosc' : 'Mode clar'}
+                        aria-label="Cambiar tema"
+                        title={theme === 'light' ? 'Modo oscuro' : 'Modo claro'}
                     >
                         {theme === 'light' ? '🌙' : '☀️'}
                     </button>
@@ -99,7 +99,7 @@ const Navbar = () => {
                         <>
                             <span className="navbar-user">{user?.email}</span>
                             <button onClick={() => { logout(); closeMenu(); }} className="btn-logout">
-                                Sortir
+                                Salir
                             </button>
                         </>
                     ) : (

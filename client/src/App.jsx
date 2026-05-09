@@ -10,6 +10,8 @@ import Region from './pages/Region';
 import Lloc from './pages/Lloc';
 import PuntInteres from './pages/PuntInteres';
 import Plantes from './pages/Plantes';
+import Horticultura from './pages/Horticultura';
+import EntradaHorticulturaPage from './pages/EntradaHorticultura';
 import AdminLogin from './pages/AdminLogin';
 import './App.css';
 
@@ -24,6 +26,8 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/plantes" element={<Plantes />} />
+              <Route path="/plantes/horticultura" element={<Horticultura />} />
+              <Route path="/plantes/horticultura/:entradaSlug" element={<EntradaHorticulturaPage />} />
               <Route path="/admin" element={<AdminLogin />} />
               <Route path="/viatges" element={<Viatges />} />
               <Route path="/viatges/regio/:regioSlug" element={<Region />} />

@@ -18,8 +18,13 @@ const plantaSchema = new mongoose.Schema({
     etiqueta: {
         type: String,
         required: [true, "L'etiqueta és obligatòria"],
-        enum: ['plantes', 'suculentes', 'cactus', 'crases'],
-        default: 'plantes'
+        enum: ['planta', 'crases-suculentes', 'cactus'],
+        default: 'planta'
+    },
+    ubicacio: {
+        type: String,
+        enum: ['interior', 'exterior', null],
+        default: null
     },
     imatgePortada: {
         type: String,
@@ -33,10 +38,9 @@ const plantaSchema = new mongoose.Schema({
     timestamps: true
 });
 
-// Index per filtrar per etiqueta
 plantaSchema.index({ etiqueta: 1 });
+plantaSchema.index({ ubicacio: 1 });
 
-// Transformar _id a id en les respostes JSON
 plantaSchema.set('toJSON', {
     virtuals: true,
     transform: (doc, ret) => {

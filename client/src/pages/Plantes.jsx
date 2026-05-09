@@ -4,15 +4,22 @@ import { useAuth } from '../context/AuthContext';
 import { getPlantes, deletePlanta } from '../services/api';
 import PlantaCard from '../components/public/PlantaCard';
 import PlantaModal from '../components/admin/PlantaModal';
+import SeccioDescripcio from '../components/public/SeccioDescripcio';
 import toast from 'react-hot-toast';
 import './Plantes.css';
 
-const ETIQUETES = [
-    { valor: null, label: 'Totes' },
-    { valor: 'plantes', label: 'Plantes' },
-    { valor: 'suculentes', label: 'Suculentes' },
+// Categories principals
+const CATEGORIES = [
+    { valor: null, label: 'Todas' },
+    { valor: 'planta', label: 'Plantas' },
+    { valor: 'crases-suculentes', label: 'Crasas y suculentas' },
     { valor: 'cactus', label: 'Cactus' },
-    { valor: 'crases', label: 'Crases' },
+];
+
+const UBICACIONS = [
+    { valor: null, label: 'Todas' },
+    { valor: 'interior', label: 'Interior' },
+    { valor: 'exterior', label: 'Exterior' },
 ];
 
 const Plantes = () => {
@@ -22,6 +29,7 @@ const Plantes = () => {
     const [showModal, setShowModal] = useState(false);
     const [selectedPlanta, setSelectedPlanta] = useState(null);
     const [filtreEtiqueta, setFiltreEtiqueta] = useState(null);
+    const [filtreUbicacio, setFiltreUbicacio] = useState(null);
     const [cercaText, setCercaText] = useState('');
 
     useEffect(() => {
@@ -33,7 +41,7 @@ const Plantes = () => {
             const response = await getPlantes();
             setPlantes(response.data);
         } catch (error) {
-            toast.error('Error carregant les plantes');
+            toast.error('Error al cargar las plantas');
             console.error(error);
         } finally {
             setLoading(false);
@@ -47,6 +55,11 @@ const Plantes = () => {
             result = result.filter((p) => p.etiqueta === filtreEtiqueta);
         }
 
+        // Sub-filtre ubicació només té sentit per "planta" (interior/exterior)
+        if (filtreEtiqueta === 'planta' && filtreUbicacio) {
+            result = result.filter((p) => p.ubicacio === filtreUbicacio);
+        }
+
         if (cercaText.trim()) {
             const cerca = cercaText.toLowerCase().trim();
             result = result.filter(
@@ -58,7 +71,7 @@ const Plantes = () => {
         }
 
         return result;
-    }, [plantes, filtreEtiqueta, cercaText]);
+    }, [plantes, filtreEtiqueta, filtreUbicacio, cercaText]);
 
     const handleCreate = () => {
         setSelectedPlanta(null);
@@ -71,13 +84,13 @@ const Plantes = () => {
     };
 
     const handleDelete = async (planta) => {
-        if (!window.confirm(`Segur que vols eliminar "${planta.nom}"?`)) return;
+        if (!window.confirm(`¿Seguro que quieres eliminar "${planta.nom}"?`)) return;
         try {
             await deletePlanta(planta.id);
-            toast.success('Planta eliminada correctament');
+            toast.success('Planta eliminada correctamente');
             fetchPlantes();
         } catch (error) {
-            const message = error.response?.data?.error || 'Error eliminant la planta';
+            const message = error.response?.data?.error || 'Error al eliminar la planta';
             toast.error(message);
         }
     };
@@ -88,8 +101,14 @@ const Plantes = () => {
         if (refresh) fetchPlantes();
     };
 
+    const handleCategoria = (valor) => {
+        setFiltreEtiqueta(valor);
+        // Reset sub-filtre si no estem a "planta"
+        if (valor !== 'planta') setFiltreUbicacio(null);
+    };
+
     if (loading) {
-        return <div className="loading-container"><p>Carregant...</p></div>;
+        return <div className="loading-container"><p>Cargando...</p></div>;
     }
 
     return (
@@ -97,29 +116,40 @@ const Plantes = () => {
             <div className="plantes-header">
                 <div className="plantes-header-texture"></div>
                 <div className="plantes-header-content">
-                    <Link to="/" className="breadcrumb">← Tots els racons</Link>
-                    <h1>Plantes</h1>
-                    <p>Cria, hibridació i cuidado de plantes</p>
+                    <Link to="/" className="breadcrumb">← Todos los rincones</Link>
+                    <h1>Plantas</h1>
+                    <p>Cría, hibridación y curas de plantas</p>
                 </div>
             </div>
 
             <div className="plantes-content">
+                <SeccioDescripcio
+                    slug="plantes"
+                    accentColor="#48734c"
+                    placeholder="Describe esta sección de plantas..."
+                />
+
                 <div className="plantes-content-header">
-                    <h2>Col·lecció</h2>
-                    {isAuthenticated && (
-                        <button onClick={handleCreate} className="btn-create">
-                            + Afegir Planta
-                        </button>
-                    )}
+                    <h2>Colección</h2>
+                    <div className="plantes-content-actions">
+                        <Link to="/plantes/horticultura" className="btn-horticultura">
+                            📔 Horticultura
+                        </Link>
+                        {isAuthenticated && (
+                            <button onClick={handleCreate} className="btn-create">
+                                + Añadir planta
+                            </button>
+                        )}
+                    </div>
                 </div>
 
                 <div className="plantes-toolbar">
                     <div className="plantes-filters">
-                        {ETIQUETES.map((et) => (
+                        {CATEGORIES.map((et) => (
                             <button
                                 key={et.label}
                                 className={`filter-btn ${filtreEtiqueta === et.valor ? 'active' : ''}`}
-                                onClick={() => setFiltreEtiqueta(et.valor)}
+                                onClick={() => handleCategoria(et.valor)}
                             >
                                 {et.label}
                             </button>
@@ -128,7 +158,7 @@ const Plantes = () => {
                     <div className="plantes-search">
                         <input
                             type="text"
-                            placeholder="Cercar planta..."
+                            placeholder="Buscar planta..."
                             value={cercaText}
                             onChange={(e) => setCercaText(e.target.value)}
                             className="search-input"
@@ -136,12 +166,28 @@ const Plantes = () => {
                     </div>
                 </div>
 
+                {/* Sub-filtre interior/exterior només quan l'usuari ha triat "Plantas" */}
+                {filtreEtiqueta === 'planta' && (
+                    <div className="plantes-subfilters">
+                        <span className="subfilter-label">Ubicación:</span>
+                        {UBICACIONS.map((u) => (
+                            <button
+                                key={u.label}
+                                className={`subfilter-btn ${filtreUbicacio === u.valor ? 'active' : ''}`}
+                                onClick={() => setFiltreUbicacio(u.valor)}
+                            >
+                                {u.label}
+                            </button>
+                        ))}
+                    </div>
+                )}
+
                 {plantesFiltrades.length === 0 ? (
                     <div className="empty-state">
                         <p>
                             {plantes.length === 0
-                                ? `Encara no hi ha plantes.${isAuthenticated ? ' Afegeix la primera!' : ''}`
-                                : 'Cap planta coincideix amb els filtres.'}
+                                ? `Aún no hay plantas.${isAuthenticated ? ' ¡Añade la primera!' : ''}`
+                                : 'Ninguna planta coincide con los filtros.'}
                         </p>
                     </div>
                 ) : (

@@ -35,7 +35,7 @@ const Region = () => {
             );
             setLlocs(llocsFiltered);
         } catch (error) {
-            toast.error('Error carregant les dades');
+            toast.error('Error al cargar los datos');
             console.error(error);
         } finally {
             setLoading(false);
@@ -53,16 +53,16 @@ const Region = () => {
     };
 
     const handleDelete = async (lloc) => {
-        if (!window.confirm(`Segur que vols eliminar "${lloc.nom}"?`)) {
+        if (!window.confirm(`¿Seguro que quieres eliminar "${lloc.nom}"?`)) {
             return;
         }
 
         try {
             await deleteLloc(lloc.id);
-            toast.success('Lloc eliminat correctament');
+            toast.success('Lugar eliminado correctamente');
             fetchData();
         } catch (error) {
-            const message = error.response?.data?.error || 'Error eliminant el lloc';
+            const message = error.response?.data?.error || 'Error al eliminar el lugar';
             toast.error(message);
         }
     };
@@ -78,7 +78,7 @@ const Region = () => {
     if (loading) {
         return (
             <div className="loading-container">
-                <p>Carregant...</p>
+                <p>Cargando...</p>
             </div>
         );
     }
@@ -86,8 +86,8 @@ const Region = () => {
     if (!regio) {
         return (
             <div className="error-container">
-                <h2>Regió no trobada</h2>
-                <Link to="/viatges" className="btn-back">Tornar a viatges</Link>
+                <h2>Región no encontrada</h2>
+                <Link to="/viatges" className="btn-back">Volver a viajes</Link>
             </div>
         );
     }
@@ -96,24 +96,24 @@ const Region = () => {
         <div className="region-page">
             <div className="region-header">
                 <div className="region-header-content">
-                    <Link to="/viatges" className="breadcrumb">← Tornar a regions</Link>
+                    <Link to="/viatges" className="breadcrumb">← Volver a regiones</Link>
                     <h1>{regio.nom}</h1>
                 </div>
             </div>
 
             <div className="region-content">
                 <div className="region-content-header">
-                    <h2>Llocs per visitar</h2>
+                    <h2>Lugares para visitar</h2>
                     {isAuthenticated && (
                         <button onClick={handleCreate} className="btn-create">
-                            + Afegir Lloc
+                            + Añadir lugar
                         </button>
                     )}
                 </div>
 
                 {llocs.length === 0 ? (
                     <div className="empty-state">
-                        <p>Encara no hi ha llocs a aquesta regió. {isAuthenticated && 'Afegeix el primer!'}</p>
+                        <p>Aún no hay lugares en esta región. {isAuthenticated && '¡Añade el primero!'}</p>
                     </div>
                 ) : (
                     <div className="llocs-grid">

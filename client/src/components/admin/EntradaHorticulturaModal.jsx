@@ -1,49 +1,40 @@
 import { useState, useEffect } from 'react';
-import { createPuntInteres, updatePuntInteres } from '../../services/api';
-import { getImageUrl } from '../../utils/imageUrl';
+import { createEntradaHorticultura, updateEntradaHorticultura } from '../../services/api';
 import toast from 'react-hot-toast';
 import './Modal.css';
 
-const PuntInteresModal = ({ punt, llocId, regioId, onClose }) => {
+const formatDateForInput = (date) => {
+    if (!date) return new Date().toISOString().slice(0, 10);
+    const d = new Date(date);
+    return d.toISOString().slice(0, 10);
+};
+
+const EntradaHorticulturaModal = ({ entrada, onClose }) => {
     const [formData, setFormData] = useState({
-        nom: '',
+        titol: '',
         slug: '',
+        data: formatDateForInput(),
         descripcio: '',
-        ordre: 0,
+        cos: '',
     });
     const [imatgePortada, setImatgePortada] = useState(null);
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        if (punt) {
+        if (entrada) {
             setFormData({
-                nom: punt.nom,
-                slug: punt.slug,
-                descripcio: punt.descripcio || '',
-                ordre: punt.ordre,
+                titol: entrada.titol,
+                slug: entrada.slug,
+                data: formatDateForInput(entrada.data),
+                descripcio: entrada.descripcio || '',
+                cos: entrada.cos || '',
             });
         }
-    }, [punt]);
+    }, [entrada]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData((prev) => ({ ...prev, [name]: value }));
-    };
-
-    const handleNomChange = (e) => {
-        const nom = e.target.value;
-        const slugAuto = nom
-            .toLowerCase()
-            .normalize('NFD')
-            .replace(/[\u0300-\u036f]/g, '')
-            .replace(/[^a-z0-9\s-]/g, '')
-            .trim()
-            .replace(/\s+/g, '-');
-        setFormData((prev) => ({
-            ...prev,
-            nom,
-            slug: prev.slug === '' || !punt ? slugAuto : prev.slug,
-        }));
     };
 
     const handleImageChange = (e) => {
@@ -55,8 +46,8 @@ const PuntInteresModal = ({ punt, llocId, regioId, onClose }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (!formData.nom || !formData.slug) {
-            toast.error('Nombre y slug son obligatorios');
+        if (!formData.titol || !formData.slug) {
+            toast.error('Título y slug son obligatorios');
             return;
         }
 
@@ -64,31 +55,27 @@ const PuntInteresModal = ({ punt, llocId, regioId, onClose }) => {
 
         try {
             const data = new FormData();
-            data.append('nom', formData.nom);
+            data.append('titol', formData.titol);
             data.append('slug', formData.slug);
+            data.append('data', formData.data);
             data.append('descripcio', formData.descripcio);
-            data.append('ordre', formData.ordre);
-
-            if (!punt) {
-                data.append('lloc', llocId);
-                data.append('regio', regioId);
-            }
+            data.append('cos', formData.cos);
 
             if (imatgePortada) {
                 data.append('imatgePortada', imatgePortada);
             }
 
-            if (punt) {
-                await updatePuntInteres(punt.id, data);
-                toast.success('Punto de interés actualizado correctamente');
+            if (entrada) {
+                await updateEntradaHorticultura(entrada.id, data);
+                toast.success('Entrada actualizada correctamente');
             } else {
-                await createPuntInteres(data);
-                toast.success('Punto de interés creado correctamente');
+                await createEntradaHorticultura(data);
+                toast.success('Entrada creada correctamente');
             }
 
             onClose(true);
         } catch (error) {
-            const message = error.response?.data?.error || 'Error al guardar el punto de interés';
+            const message = error.response?.data?.error || 'Error al guardar la entrada';
             toast.error(message);
         } finally {
             setLoading(false);
@@ -99,78 +86,88 @@ const PuntInteresModal = ({ punt, llocId, regioId, onClose }) => {
         <div className="modal-overlay" onClick={() => onClose(false)}>
             <div className="modal-content modal-large" onClick={(e) => e.stopPropagation()}>
                 <div className="modal-header">
-                    <h2>{punt ? 'Editar punto de interés' : 'Nuevo punto de interés'}</h2>
+                    <h2>{entrada ? 'Editar entrada' : 'Nueva entrada de horticultura'}</h2>
                     <button className="modal-close" onClick={() => onClose(false)}>✕</button>
                 </div>
 
                 <form onSubmit={handleSubmit} className="modal-form">
                     <div className="form-row">
                         <div className="form-group">
-                            <label htmlFor="nom">Nombre *</label>
+                            <label htmlFor="titol">Título *</label>
                             <input
                                 type="text"
-                                id="nom"
-                                name="nom"
-                                value={formData.nom}
-                                onChange={handleNomChange}
-                                placeholder="Sagrada Familia"
-                                required
-                            />
-                        </div>
-
-                        <div className="form-group">
-                            <label htmlFor="slug">Slug *</label>
-                            <input
-                                type="text"
-                                id="slug"
-                                name="slug"
-                                value={formData.slug}
+                                id="titol"
+                                name="titol"
+                                value={formData.titol}
                                 onChange={handleChange}
-                                placeholder="sagrada-familia"
+                                placeholder="Plantación de tomates"
+                                required
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="data">Fecha *</label>
+                            <input
+                                type="date"
+                                id="data"
+                                name="data"
+                                value={formData.data}
+                                onChange={handleChange}
                                 required
                             />
                         </div>
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="ordre">Orden</label>
+                        <label htmlFor="slug">Slug * (URL amigable)</label>
                         <input
-                            type="number"
-                            id="ordre"
-                            name="ordre"
-                            value={formData.ordre}
+                            type="text"
+                            id="slug"
+                            name="slug"
+                            value={formData.slug}
                             onChange={handleChange}
-                            min="0"
+                            placeholder="plantacion-tomates-2026"
+                            required
                         />
+                        <small>Solo letras, números y guiones. Ejemplo: "plantacion-tomates-2026"</small>
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="descripcio">Descripción</label>
-                        <textarea
+                        <label htmlFor="descripcio">Resumen breve</label>
+                        <input
+                            type="text"
                             id="descripcio"
                             name="descripcio"
                             value={formData.descripcio}
                             onChange={handleChange}
-                            placeholder="Descripción del punto de interés..."
-                            rows="5"
+                            placeholder="Una frase para resumir esta entrada"
                         />
+                        <small>Aparece en el listado, debajo del título.</small>
+                    </div>
+
+                    <div className="form-group">
+                        <label htmlFor="cos">Cuerpo del texto</label>
+                        <textarea
+                            id="cos"
+                            name="cos"
+                            value={formData.cos}
+                            onChange={handleChange}
+                            placeholder="Cuenta aquí cómo fue, paso a paso..."
+                            rows="14"
+                        />
+                        <small>Texto largo. Las imágenes se gestionan desde la página de la entrada después de crearla.</small>
                     </div>
 
                     <div className="form-group">
                         <label htmlFor="imatgePortada">Imagen de portada</label>
-                        {punt && punt.imatgePortada && !imatgePortada && (
-                            <img
-                                src={getImageUrl(punt.imatgePortada)}
-                                alt="Portada actual"
-                                style={{ width: '120px', height: '80px', objectFit: 'cover', borderRadius: '6px', marginBottom: '8px' }}
-                            />
-                        )}
                         <input
                             type="file"
                             id="imatgePortada"
                             accept="image/*"
                             onChange={handleImageChange}
                         />
+                        {entrada?.imatgePortada && !imatgePortada && (
+                            <small>Imagen actual asignada</small>
+                        )}
                     </div>
 
                     <div className="modal-actions">
@@ -192,4 +189,4 @@ const PuntInteresModal = ({ punt, llocId, regioId, onClose }) => {
     );
 };
 
-export default PuntInteresModal;
+export default EntradaHorticulturaModal;

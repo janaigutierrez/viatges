@@ -11,15 +11,14 @@ const getPublicIdFromUrl = (url) => {
     return `${folder}/${publicId}`;
 };
 
-// @desc    Obtenir totes les plantes (amb filtre opcional per etiqueta)
+// @desc    Obtenir totes les plantes (amb filtres opcionals: etiqueta, ubicacio)
 // @route   GET /api/plantes
 // @access  Public
 const getPlantes = async (req, res, next) => {
     try {
         const filter = {};
-        if (req.query.etiqueta) {
-            filter.etiqueta = req.query.etiqueta;
-        }
+        if (req.query.etiqueta) filter.etiqueta = req.query.etiqueta;
+        if (req.query.ubicacio) filter.ubicacio = req.query.ubicacio;
         const plantes = await Planta.find(filter).sort({ ordre: 1, createdAt: -1 });
         res.json(plantes);
     } catch (error) {
@@ -51,7 +50,7 @@ const getPlantaById = async (req, res, next) => {
 // @access  Private (Admin)
 const createPlanta = async (req, res, next) => {
     try {
-        const { nom, nomLlati, descripcio, etiqueta, ordre } = req.body;
+        const { nom, nomLlati, descripcio, etiqueta, ubicacio, ordre } = req.body;
 
         if (!nom) {
             return res.status(400).json({
@@ -65,7 +64,8 @@ const createPlanta = async (req, res, next) => {
             nom,
             nomLlati: nomLlati || '',
             descripcio: descripcio || '',
-            etiqueta: etiqueta || 'plantes',
+            etiqueta: etiqueta || 'planta',
+            ubicacio: ubicacio || null,
             imatgePortada,
             ordre: ordre || 0
         });
@@ -81,7 +81,7 @@ const createPlanta = async (req, res, next) => {
 // @access  Private (Admin)
 const updatePlanta = async (req, res, next) => {
     try {
-        const { nom, nomLlati, descripcio, etiqueta, ordre } = req.body;
+        const { nom, nomLlati, descripcio, etiqueta, ubicacio, ordre } = req.body;
 
         const planta = await Planta.findById(req.params.id);
 
@@ -100,6 +100,7 @@ const updatePlanta = async (req, res, next) => {
         planta.nomLlati = nomLlati !== undefined ? nomLlati : planta.nomLlati;
         planta.descripcio = descripcio !== undefined ? descripcio : planta.descripcio;
         planta.etiqueta = etiqueta || planta.etiqueta;
+        planta.ubicacio = ubicacio !== undefined ? (ubicacio || null) : planta.ubicacio;
         planta.ordre = ordre !== undefined ? ordre : planta.ordre;
 
         if (req.file) {

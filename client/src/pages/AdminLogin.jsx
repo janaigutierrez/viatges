@@ -30,8 +30,8 @@ const AdminLogin = () => {
     return (
         <div className="login-container">
             <div className="login-box">
-                <h1>Accés Admin</h1>
-                <p className="login-subtitle">Gestió de Viatges</p>
+                <h1>Acceso Admin</h1>
+                <p className="login-subtitle">Gestión de Desastre de cajón</p>
 
                 <form onSubmit={handleSubmit} className="login-form">
                     <div className="form-group">
@@ -47,7 +47,7 @@ const AdminLogin = () => {
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="password">Contrasenya</label>
+                        <label htmlFor="password">Contraseña</label>
                         <input
                             type="password"
                             id="password"
@@ -63,7 +63,7 @@ const AdminLogin = () => {
                         className="btn-login"
                         disabled={loading}
                     >
-                        {loading ? 'Entrant...' : 'Entrar'}
+                        {loading ? 'Entrando...' : 'Entrar'}
                     </button>
                 </form>
             </div>

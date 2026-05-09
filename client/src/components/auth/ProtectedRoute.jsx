@@ -12,7 +12,7 @@ const ProtectedRoute = ({ children }) => {
                 alignItems: 'center',
                 minHeight: '100vh'
             }}>
-                <p>Carregant...</p>
+                <p>Cargando...</p>
             </div>
         );
     }

@@ -53,10 +53,10 @@ export const AuthProvider = ({ children }) => {
             setUser(userData);
             setIsAuthenticated(true);
 
-            toast.success('Login correcte!');
+            toast.success('¡Sesión iniciada!');
             return true;
         } catch (error) {
-            const message = error.response?.data?.error || 'Error al fer login';
+            const message = error.response?.data?.error || 'Error al iniciar sesión';
             toast.error(message);
             return false;
         }
@@ -66,7 +66,7 @@ export const AuthProvider = ({ children }) => {
         localStorage.removeItem('token');
         setUser(null);
         setIsAuthenticated(false);
-        toast.success('Sessió tancada');
+        toast.success('Sesión cerrada');
     };
 
     const value = {

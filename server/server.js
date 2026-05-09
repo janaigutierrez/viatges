@@ -37,6 +37,8 @@ app.use('/api/regions', require('./routes/regions'));
 app.use('/api/llocs', require('./routes/llocs'));
 app.use('/api/punts', require('./routes/punts'));
 app.use('/api/plantes', require('./routes/plantes'));
+app.use('/api/horticultura', require('./routes/horticultura'));
+app.use('/api/seccions', require('./routes/seccions'));
 
 // Error handler
 app.use(errorHandler);

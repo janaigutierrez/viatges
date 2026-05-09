@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { RACONS } from '../config/racons';
+import SeccioDescripcio from '../components/public/SeccioDescripcio';
 import './Home.css';
 
 const Home = () => {
@@ -9,12 +10,17 @@ const Home = () => {
                 <div className="home-hero-texture"></div>
                 <div className="home-hero-content">
                     <h1>Desastre de cajón</h1>
-                    <p>Un calaix desordenat de viatges, plantes, receptes i experiments</p>
+                    <p>Un cajón desordenado de viajes, plantas, recetas y experimentos</p>
                 </div>
             </div>
 
             <div className="home-content">
-                <h2>Racons</h2>
+                <SeccioDescripcio
+                    slug="home"
+                    placeholder="Aquí puedes presentar la web a quien la visite."
+                />
+
+                <h2>Rincones</h2>
                 <div className="racons-grid">
                     {RACONS.map((raco) => (
                         <RacoCard key={raco.slug} raco={raco} />
@@ -38,7 +44,7 @@ const RacoCard = ({ raco }) => {
                     <h3>{raco.nom}</h3>
                     <p>{raco.descripcio}</p>
                 </div>
-                {!raco.actiu && <span className="raco-badge">Pròximament</span>}
+                {!raco.actiu && <span className="raco-badge">Próximamente</span>}
                 {raco.actiu && <span className="raco-arrow">→</span>}
             </div>
         </div>

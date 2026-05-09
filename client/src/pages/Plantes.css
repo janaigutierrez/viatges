@@ -64,6 +64,34 @@
     color: var(--text-primary);
 }
 
+.plantes-content-actions {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.btn-horticultura {
+    padding: 10px 20px;
+    background: transparent;
+    color: #48734c;
+    border: 2px solid #48734c;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.btn-horticultura:hover {
+    background: #48734c;
+    color: white;
+}
+
 .plantes-content-header .btn-create {
     padding: 12px 24px;
     background: #48734c;
@@ -79,6 +107,49 @@
 .plantes-content-header .btn-create:hover {
     background: #3a5f3e;
     transform: translateY(-2px);
+}
+
+/* Sub-filtres (interior/exterior) */
+.plantes-subfilters {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: -10px 0 30px;
+    padding: 12px 16px;
+    background: var(--bg-card-alt);
+    border-radius: 8px;
+    flex-wrap: wrap;
+}
+
+.subfilter-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.subfilter-btn {
+    padding: 5px 14px;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    background: var(--bg-card);
+    color: var(--text-secondary);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.subfilter-btn:hover {
+    border-color: #48734c;
+    color: #48734c;
+}
+
+.subfilter-btn.active {
+    background: #48734c;
+    border-color: #48734c;
+    color: white;
 }
 
 /* ── Toolbar: filtres + cerca ── */

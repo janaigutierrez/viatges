@@ -40,7 +40,7 @@ const RegioModal = ({ regio, onClose }) => {
         e.preventDefault();
 
         if (!formData.nom || !formData.slug) {
-            toast.error('Nom i slug són obligatoris');
+            toast.error('Nombre y slug son obligatorios');
             return;
         }
 
@@ -58,15 +58,15 @@ const RegioModal = ({ regio, onClose }) => {
 
             if (regio) {
                 await updateRegio(regio.id, data);
-                toast.success('Regió actualitzada correctament');
+                toast.success('Región actualizada correctamente');
             } else {
                 await createRegio(data);
-                toast.success('Regió creada correctament');
+                toast.success('Región creada correctamente');
             }
 
-            onClose(true); // true = refresh data
+            onClose(true);
         } catch (error) {
-            const message = error.response?.data?.error || 'Error guardant la regió';
+            const message = error.response?.data?.error || 'Error al guardar la región';
             toast.error(message);
         } finally {
             setLoading(false);
@@ -77,7 +77,7 @@ const RegioModal = ({ regio, onClose }) => {
         <div className="modal-overlay" onClick={() => onClose(false)}>
             <div className="modal-content" onClick={(e) => e.stopPropagation()}>
                 <div className="modal-header">
-                    <h2>{regio ? 'Editar Regió' : 'Nova Regió'}</h2>
+                    <h2>{regio ? 'Editar región' : 'Nueva región'}</h2>
                     <button className="modal-close" onClick={() => onClose(false)}>
                         ✕
                     </button>
@@ -85,14 +85,14 @@ const RegioModal = ({ regio, onClose }) => {
 
                 <form onSubmit={handleSubmit} className="modal-form">
                     <div className="form-group">
-                        <label htmlFor="nom">Nom *</label>
+                        <label htmlFor="nom">Nombre *</label>
                         <input
                             type="text"
                             id="nom"
                             name="nom"
                             value={formData.nom}
                             onChange={handleChange}
-                            placeholder="Catalunya"
+                            placeholder="Cataluña"
                             required
                         />
                     </div>
@@ -105,14 +105,14 @@ const RegioModal = ({ regio, onClose }) => {
                             name="slug"
                             value={formData.slug}
                             onChange={handleChange}
-                            placeholder="catalunya"
+                            placeholder="cataluna"
                             required
                         />
-                        <small>Exemple: "catalunya", "cantabria"</small>
+                        <small>Ejemplo: "cataluna", "cantabria"</small>
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="ordre">Ordre</label>
+                        <label htmlFor="ordre">Orden</label>
                         <input
                             type="number"
                             id="ordre"
@@ -121,11 +121,11 @@ const RegioModal = ({ regio, onClose }) => {
                             onChange={handleChange}
                             min="0"
                         />
-                        <small>Per ordenar les regions (menor número = primer)</small>
+                        <small>Para ordenar las regiones (menor número = primero)</small>
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="imatgePortada">Imatge de portada</label>
+                        <label htmlFor="imatgePortada">Imagen de portada</label>
                         <input
                             type="file"
                             id="imatgePortada"
@@ -133,7 +133,7 @@ const RegioModal = ({ regio, onClose }) => {
                             onChange={handleImageChange}
                         />
                         {regio?.imatgePortada && !imatgePortada && (
-                            <small>Imatge actual: {regio.imatgePortada}</small>
+                            <small>Imagen actual asignada</small>
                         )}
                     </div>
 
@@ -144,10 +144,10 @@ const RegioModal = ({ regio, onClose }) => {
                             className="btn-cancel"
                             disabled={loading}
                         >
-                            Cancel·lar
+                            Cancelar
                         </button>
                         <button type="submit" className="btn-submit" disabled={loading}>
-                            {loading ? 'Guardant...' : 'Guardar'}
+                            {loading ? 'Guardando...' : 'Guardar'}
                         </button>
                     </div>
                 </form>

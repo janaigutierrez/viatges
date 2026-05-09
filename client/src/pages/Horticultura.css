@@ -1,0 +1,282 @@
+.horticultura-page {
+    min-height: 100vh;
+    background: var(--bg-page);
+}
+
+.horticultura-header {
+    position: relative;
+    background: #7a5b3a;
+    padding: 50px 20px 40px;
+    color: white;
+    overflow: hidden;
+}
+
+/* Textura terra/camps llaurats */
+.horticultura-header-texture {
+    position: absolute;
+    inset: 0;
+    opacity: 0.08;
+    background-image:
+        repeating-linear-gradient(
+            90deg,
+            transparent,
+            transparent 18px,
+            rgba(255, 255, 255, 0.5) 18px,
+            rgba(255, 255, 255, 0.5) 19px
+        ),
+        repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 30px,
+            rgba(255, 255, 255, 0.2) 30px,
+            rgba(255, 255, 255, 0.2) 31px
+        );
+    pointer-events: none;
+}
+
+.horticultura-header-content {
+    position: relative;
+    z-index: 1;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.horticultura-header-content h1 {
+    margin: 12px 0 8px;
+    font-size: 42px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+}
+
+.horticultura-header-content p {
+    margin: 0;
+    font-size: 16px;
+    opacity: 0.85;
+    font-style: italic;
+}
+
+.horticultura-content {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 20px 80px;
+}
+
+.horticultura-content-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 30px 0 24px;
+}
+
+.horticultura-content-header h2 {
+    margin: 0;
+    font-size: 28px;
+    color: var(--text-primary);
+}
+
+.btn-create-horticultura {
+    padding: 12px 24px;
+    background: #7a5b3a;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-create-horticultura:hover {
+    background: #5e4528;
+    transform: translateY(-2px);
+}
+
+/* Timeline */
+.horticultura-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    position: relative;
+}
+
+.horticultura-timeline::before {
+    content: '';
+    position: absolute;
+    left: 110px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--border);
+}
+
+.entrada-row {
+    display: grid;
+    grid-template-columns: 130px 1fr;
+    gap: 20px;
+    align-items: flex-start;
+    position: relative;
+}
+
+.entrada-row-date {
+    text-align: right;
+    padding-top: 16px;
+    position: relative;
+}
+
+.entrada-row-date::after {
+    content: '';
+    position: absolute;
+    right: -22px;
+    top: 22px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #7a5b3a;
+    border: 3px solid var(--bg-page);
+    z-index: 1;
+}
+
+.entrada-date {
+    font-size: 14px;
+    font-weight: 600;
+    color: #7a5b3a;
+    text-transform: capitalize;
+}
+
+.entrada-row-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px var(--shadow-sm);
+    transition: transform 0.25s, box-shadow 0.25s;
+}
+
+.entrada-row-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px var(--shadow-md);
+}
+
+.entrada-row-link {
+    display: flex;
+    text-decoration: none;
+    color: inherit;
+}
+
+.entrada-row-image {
+    width: 180px;
+    flex-shrink: 0;
+    background: var(--image-placeholder);
+}
+
+.entrada-row-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.entrada-row-body {
+    flex: 1;
+    padding: 18px 22px;
+}
+
+.entrada-row-body h3 {
+    margin: 0 0 6px;
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.entrada-row-body p {
+    margin: 0 0 8px;
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+.entrada-row-cta {
+    font-size: 13px;
+    font-weight: 600;
+    color: #7a5b3a;
+}
+
+.entrada-row-actions {
+    display: flex;
+    gap: 8px;
+    padding: 10px 22px 14px;
+    border-top: 1px solid var(--border);
+    background: var(--bg-card-alt);
+}
+
+.entrada-row-actions .btn-edit,
+.entrada-row-actions .btn-delete {
+    flex: 1;
+    padding: 6px 10px;
+    border: none;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.entrada-row-actions .btn-edit {
+    background: #7a5b3a;
+    color: white;
+}
+
+.entrada-row-actions .btn-edit:hover {
+    background: #5e4528;
+}
+
+.entrada-row-actions .btn-delete {
+    background: #f56565;
+    color: white;
+}
+
+.entrada-row-actions .btn-delete:hover {
+    background: #e53e3e;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--text-secondary);
+    font-size: 18px;
+}
+
+@media (max-width: 768px) {
+    .horticultura-header-content h1 {
+        font-size: 32px;
+    }
+
+    .horticultura-timeline::before {
+        left: 6px;
+    }
+
+    .entrada-row {
+        grid-template-columns: 1fr;
+        padding-left: 30px;
+    }
+
+    .entrada-row-date {
+        text-align: left;
+        padding-top: 0;
+    }
+
+    .entrada-row-date::after {
+        left: -27px;
+        right: auto;
+        top: 4px;
+    }
+
+    .entrada-row-link {
+        flex-direction: column;
+    }
+
+    .entrada-row-image {
+        width: 100%;
+        height: 180px;
+    }
+}

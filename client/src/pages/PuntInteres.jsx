@@ -26,7 +26,7 @@ const PuntInteres = () => {
             const response = await getPuntInteresBySlug(regioSlug, llocSlug, puntSlug);
             setPunt(response.data);
         } catch (error) {
-            toast.error('Error carregant el punt d\'interès');
+            toast.error('Error al cargar el punto de interés');
             console.error(error);
         } finally {
             setLoading(false);
@@ -47,10 +47,10 @@ const PuntInteres = () => {
             const formData = new FormData();
             files.forEach(file => formData.append('imatges', file));
             await addImatgesGaleriaPunt(punt.id, formData);
-            toast.success(`${files.length} imatge${files.length > 1 ? 's' : ''} afegida${files.length > 1 ? 's' : ''}`);
+            toast.success(`${files.length} imagen${files.length > 1 ? 'es' : ''} añadida${files.length > 1 ? 's' : ''}`);
             fetchPunt();
         } catch (error) {
-            toast.error('Error pujant imatges');
+            toast.error('Error al subir las imágenes');
         } finally {
             setUploadingGaleria(false);
             e.target.value = '';
@@ -58,13 +58,13 @@ const PuntInteres = () => {
     };
 
     const handleDeleteImatge = async (imatgeUrl) => {
-        if (!window.confirm('Eliminar aquesta imatge?')) return;
+        if (!window.confirm('¿Eliminar esta imagen?')) return;
         try {
             await deleteImatgeGaleriaPunt(punt.id, imatgeUrl);
-            toast.success('Imatge eliminada');
+            toast.success('Imagen eliminada');
             fetchPunt();
         } catch (error) {
-            toast.error('Error eliminant la imatge');
+            toast.error('Error al eliminar la imagen');
         }
     };
 
@@ -74,15 +74,15 @@ const PuntInteres = () => {
     const nextImage = () => setLightboxIndex((i) => (i + 1) % punt.galeriaImatges.length);
 
     if (loading) {
-        return <div className="loading-container"><p>Carregant...</p></div>;
+        return <div className="loading-container"><p>Cargando...</p></div>;
     }
 
     if (!punt) {
         return (
             <div className="error-container">
-                <h2>Punt d'interès no trobat</h2>
+                <h2>Punto de interés no encontrado</h2>
                 <Link to={`/viatges/regio/${regioSlug}/${llocSlug}`} className="btn-back">
-                    Tornar a {llocSlug}
+                    Volver a {llocSlug}
                 </Link>
             </div>
         );
@@ -129,10 +129,10 @@ const PuntInteres = () => {
                 {/* Galeria */}
                 <div className="punt-section">
                     <div className="galeria-header">
-                        <h3>Galeria{punt.galeriaImatges.length > 0 && ` (${punt.galeriaImatges.length})`}</h3>
+                        <h3>Galería{punt.galeriaImatges.length > 0 && ` (${punt.galeriaImatges.length})`}</h3>
                         {isAuthenticated && (
                             <label className="btn-upload-galeria">
-                                {uploadingGaleria ? 'Pujant...' : '+ Afegir fotos'}
+                                {uploadingGaleria ? 'Subiendo...' : '+ Añadir fotos'}
                                 <input
                                     type="file"
                                     accept="image/*"
@@ -146,7 +146,7 @@ const PuntInteres = () => {
                     </div>
 
                     {punt.galeriaImatges.length === 0 ? (
-                        <p className="galeria-buida">Encara no hi ha fotos en aquest punt d'interès.</p>
+                        <p className="galeria-buida">Aún no hay fotos en este punto de interés.</p>
                     ) : (
                         <div className="galeria-grid">
                             {punt.galeriaImatges.map((img, index) => (
@@ -161,7 +161,7 @@ const PuntInteres = () => {
                                         <button
                                             className="galeria-delete-btn"
                                             onClick={() => handleDeleteImatge(img)}
-                                            title="Eliminar imatge"
+                                            title="Eliminar imagen"
                                         >
                                             ✕
                                         </button>

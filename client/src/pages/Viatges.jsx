@@ -4,6 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import { getRegions, deleteRegio } from '../services/api';
 import RegionCard from '../components/public/RegionCard';
 import RegioModal from '../components/admin/RegioModal';
+import SeccioDescripcio from '../components/public/SeccioDescripcio';
 import toast from 'react-hot-toast';
 import './Viatges.css';
 
@@ -23,7 +24,7 @@ const Viatges = () => {
             const response = await getRegions();
             setRegions(response.data);
         } catch (error) {
-            toast.error('Error carregant les regions');
+            toast.error('Error al cargar las regiones');
             console.error(error);
         } finally {
             setLoading(false);
@@ -41,13 +42,13 @@ const Viatges = () => {
     };
 
     const handleDelete = async (regio) => {
-        if (!window.confirm(`Segur que vols eliminar "${regio.nom}"?`)) return;
+        if (!window.confirm(`¿Seguro que quieres eliminar "${regio.nom}"?`)) return;
         try {
             await deleteRegio(regio.id);
-            toast.success('Regió eliminada correctament');
+            toast.success('Región eliminada correctamente');
             fetchRegions();
         } catch (error) {
-            const message = error.response?.data?.error || 'Error eliminant la regió';
+            const message = error.response?.data?.error || 'Error al eliminar la región';
             toast.error(message);
         }
     };
@@ -59,7 +60,7 @@ const Viatges = () => {
     };
 
     if (loading) {
-        return <div className="loading-container"><p>Carregant...</p></div>;
+        return <div className="loading-container"><p>Cargando...</p></div>;
     }
 
     return (
@@ -67,25 +68,31 @@ const Viatges = () => {
             <div className="viatges-header">
                 <div className="viatges-header-texture"></div>
                 <div className="viatges-header-content">
-                    <Link to="/" className="breadcrumb">← Tots els racons</Link>
-                    <h1>Viatges</h1>
-                    <p>Regions, pobles i llocs d'interès visitats</p>
+                    <Link to="/" className="breadcrumb">← Todos los rincones</Link>
+                    <h1>Viajes</h1>
+                    <p>Regiones, pueblos y lugares de interés visitados</p>
                 </div>
             </div>
 
             <div className="viatges-content">
+                <SeccioDescripcio
+                    slug="viatges"
+                    accentColor="#4f6d7a"
+                    placeholder="Describe esta sección de viajes..."
+                />
+
                 <div className="viatges-content-header">
-                    <h2>Regions</h2>
+                    <h2>Regiones</h2>
                     {isAuthenticated && (
                         <button onClick={handleCreate} className="btn-create">
-                            + Afegir Regió
+                            + Añadir región
                         </button>
                     )}
                 </div>
 
                 {regions.length === 0 ? (
                     <div className="empty-state">
-                        <p>Encara no hi ha regions. {isAuthenticated && 'Afegeix la primera!'}</p>
+                        <p>Aún no hay regiones. {isAuthenticated && '¡Añade la primera!'}</p>
                     </div>
                 ) : (
                     <div className="regions-grid">

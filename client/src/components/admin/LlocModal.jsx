@@ -36,7 +36,7 @@ const LlocModal = ({ lloc, regioId, onClose }) => {
             const response = await getRegions();
             setRegions(response.data);
         } catch (error) {
-            console.error('Error carregant regions:', error);
+            console.error('Error al cargar regiones:', error);
         }
     };
 
@@ -72,7 +72,7 @@ const LlocModal = ({ lloc, regioId, onClose }) => {
         e.preventDefault();
 
         if (!formData.nom || !formData.slug || !formData.regio) {
-            toast.error('Nom, slug i regió són obligatoris');
+            toast.error('Nombre, slug y región son obligatorios');
             return;
         }
 
@@ -93,15 +93,15 @@ const LlocModal = ({ lloc, regioId, onClose }) => {
 
             if (lloc) {
                 await updateLloc(lloc.id, data);
-                toast.success('Lloc actualitzat correctament');
+                toast.success('Lugar actualizado correctamente');
             } else {
                 await createLloc(data);
-                toast.success('Lloc creat correctament');
+                toast.success('Lugar creado correctamente');
             }
 
             onClose(true);
         } catch (error) {
-            const message = error.response?.data?.error || 'Error guardant el lloc';
+            const message = error.response?.data?.error || 'Error al guardar el lugar';
             toast.error(message);
         } finally {
             setLoading(false);
@@ -112,7 +112,7 @@ const LlocModal = ({ lloc, regioId, onClose }) => {
         <div className="modal-overlay" onClick={() => onClose(false)}>
             <div className="modal-content modal-large" onClick={(e) => e.stopPropagation()}>
                 <div className="modal-header">
-                    <h2>{lloc ? 'Editar Lloc' : 'Nou Lloc'}</h2>
+                    <h2>{lloc ? 'Editar lugar' : 'Nuevo lugar'}</h2>
                     <button className="modal-close" onClick={() => onClose(false)}>
                         ✕
                     </button>
@@ -121,7 +121,7 @@ const LlocModal = ({ lloc, regioId, onClose }) => {
                 <form onSubmit={handleSubmit} className="modal-form">
                     <div className="form-row">
                         <div className="form-group">
-                            <label htmlFor="nom">Nom *</label>
+                            <label htmlFor="nom">Nombre *</label>
                             <input
                                 type="text"
                                 id="nom"
@@ -149,7 +149,7 @@ const LlocModal = ({ lloc, regioId, onClose }) => {
 
                     <div className="form-row">
                         <div className="form-group">
-                            <label htmlFor="regio">Regió *</label>
+                            <label htmlFor="regio">Región *</label>
                             <select
                                 id="regio"
                                 name="regio"
@@ -157,7 +157,7 @@ const LlocModal = ({ lloc, regioId, onClose }) => {
                                 onChange={handleChange}
                                 required
                             >
-                                <option value="">Selecciona una regió</option>
+                                <option value="">Selecciona una región</option>
                                 {regions.map((reg) => (
                                     <option key={reg.id} value={reg.id}>
                                         {reg.nom}
@@ -167,7 +167,7 @@ const LlocModal = ({ lloc, regioId, onClose }) => {
                         </div>
 
                         <div className="form-group">
-                            <label htmlFor="ordre">Ordre</label>
+                            <label htmlFor="ordre">Orden</label>
                             <input
                                 type="number"
                                 id="ordre"
@@ -180,19 +180,19 @@ const LlocModal = ({ lloc, regioId, onClose }) => {
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="descripcio">Descripció</label>
+                        <label htmlFor="descripcio">Descripción</label>
                         <textarea
                             id="descripcio"
                             name="descripcio"
                             value={formData.descripcio}
                             onChange={handleChange}
-                            placeholder="Descripció del lloc..."
+                            placeholder="Descripción del lugar..."
                             rows="4"
                         />
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="imatgePortada">Imatge de portada</label>
+                        <label htmlFor="imatgePortada">Imagen de portada</label>
                         <input
                             type="file"
                             id="imatgePortada"
@@ -204,13 +204,13 @@ const LlocModal = ({ lloc, regioId, onClose }) => {
                     {/* Punts d'interès */}
                     <div className="form-section">
                         <div className="section-header">
-                            <h3>Punts d'interès</h3>
+                            <h3>Puntos de interés</h3>
                             <button
                                 type="button"
                                 onClick={handleAddPunt}
                                 className="btn-add-small"
                             >
-                                + Afegir punt
+                                + Añadir punto
                             </button>
                         </div>
 
@@ -219,7 +219,7 @@ const LlocModal = ({ lloc, regioId, onClose }) => {
                                 <div className="punt-fields">
                                     <input
                                         type="text"
-                                        placeholder="Nom del punt"
+                                        placeholder="Nombre del punto"
                                         value={punt.nom}
                                         onChange={(e) =>
                                             handlePuntChange(index, 'nom', e.target.value)
@@ -227,7 +227,7 @@ const LlocModal = ({ lloc, regioId, onClose }) => {
                                     />
                                     <input
                                         type="text"
-                                        placeholder="Descripció"
+                                        placeholder="Descripción"
                                         value={punt.descripcio}
                                         onChange={(e) =>
                                             handlePuntChange(index, 'descripcio', e.target.value)
@@ -252,10 +252,10 @@ const LlocModal = ({ lloc, regioId, onClose }) => {
                             className="btn-cancel"
                             disabled={loading}
                         >
-                            Cancel·lar
+                            Cancelar
                         </button>
                         <button type="submit" className="btn-submit" disabled={loading}>
-                            {loading ? 'Guardant...' : 'Guardar'}
+                            {loading ? 'Guardando...' : 'Guardar'}
                         </button>
                     </div>
                 </form>

@@ -3,14 +3,25 @@ import { createPlanta, updatePlanta } from '../../services/api';
 import toast from 'react-hot-toast';
 import './Modal.css';
 
-const ETIQUETES = ['plantes', 'suculentes', 'cactus', 'crases'];
+const ETIQUETES = [
+    { valor: 'planta', label: 'Planta' },
+    { valor: 'crases-suculentes', label: 'Crasa o suculenta' },
+    { valor: 'cactus', label: 'Cactus' },
+];
+
+const UBICACIONS = [
+    { valor: '', label: '— Sin especificar —' },
+    { valor: 'interior', label: 'Interior' },
+    { valor: 'exterior', label: 'Exterior' },
+];
 
 const PlantaModal = ({ planta, onClose }) => {
     const [formData, setFormData] = useState({
         nom: '',
         nomLlati: '',
         descripcio: '',
-        etiqueta: 'plantes',
+        etiqueta: 'planta',
+        ubicacio: '',
         ordre: 0,
     });
     const [imatgePortada, setImatgePortada] = useState(null);
@@ -22,7 +33,8 @@ const PlantaModal = ({ planta, onClose }) => {
                 nom: planta.nom,
                 nomLlati: planta.nomLlati || '',
                 descripcio: planta.descripcio || '',
-                etiqueta: planta.etiqueta || 'plantes',
+                etiqueta: planta.etiqueta || 'planta',
+                ubicacio: planta.ubicacio || '',
                 ordre: planta.ordre || 0,
             });
         }
@@ -46,7 +58,7 @@ const PlantaModal = ({ planta, onClose }) => {
         e.preventDefault();
 
         if (!formData.nom) {
-            toast.error('El nom és obligatori');
+            toast.error('El nombre es obligatorio');
             return;
         }
 
@@ -58,6 +70,7 @@ const PlantaModal = ({ planta, onClose }) => {
             data.append('nomLlati', formData.nomLlati);
             data.append('descripcio', formData.descripcio);
             data.append('etiqueta', formData.etiqueta);
+            data.append('ubicacio', formData.ubicacio);
             data.append('ordre', formData.ordre);
 
             if (imatgePortada) {
@@ -66,26 +79,28 @@ const PlantaModal = ({ planta, onClose }) => {
 
             if (planta) {
                 await updatePlanta(planta.id, data);
-                toast.success('Planta actualitzada correctament');
+                toast.success('Planta actualizada correctamente');
             } else {
                 await createPlanta(data);
-                toast.success('Planta creada correctament');
+                toast.success('Planta creada correctamente');
             }
 
             onClose(true);
         } catch (error) {
-            const message = error.response?.data?.error || 'Error guardant la planta';
+            const message = error.response?.data?.error || 'Error al guardar la planta';
             toast.error(message);
         } finally {
             setLoading(false);
         }
     };
 
+    const showUbicacio = formData.etiqueta === 'planta';
+
     return (
         <div className="modal-overlay" onClick={() => onClose(false)}>
             <div className="modal-content" onClick={(e) => e.stopPropagation()}>
                 <div className="modal-header">
-                    <h2>{planta ? 'Editar Planta' : 'Nova Planta'}</h2>
+                    <h2>{planta ? 'Editar planta' : 'Nueva planta'}</h2>
                     <button className="modal-close" onClick={() => onClose(false)}>
                         ✕
                     </button>
@@ -93,7 +108,7 @@ const PlantaModal = ({ planta, onClose }) => {
 
                 <form onSubmit={handleSubmit} className="modal-form">
                     <div className="form-group">
-                        <label htmlFor="nom">Nom *</label>
+                        <label htmlFor="nom">Nombre *</label>
                         <input
                             type="text"
                             id="nom"
@@ -106,7 +121,7 @@ const PlantaModal = ({ planta, onClose }) => {
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="nomLlati">Nom llatí</label>
+                        <label htmlFor="nomLlati">Nombre latín</label>
                         <input
                             type="text"
                             id="nomLlati"
@@ -119,7 +134,7 @@ const PlantaModal = ({ planta, onClose }) => {
 
                     <div className="form-row">
                         <div className="form-group">
-                            <label htmlFor="etiqueta">Etiqueta *</label>
+                            <label htmlFor="etiqueta">Categoría *</label>
                             <select
                                 id="etiqueta"
                                 name="etiqueta"
@@ -127,15 +142,33 @@ const PlantaModal = ({ planta, onClose }) => {
                                 onChange={handleChange}
                             >
                                 {ETIQUETES.map((et) => (
-                                    <option key={et} value={et}>
-                                        {et.charAt(0).toUpperCase() + et.slice(1)}
+                                    <option key={et.valor} value={et.valor}>
+                                        {et.label}
                                     </option>
                                 ))}
                             </select>
                         </div>
 
+                        {showUbicacio && (
+                            <div className="form-group">
+                                <label htmlFor="ubicacio">Ubicación</label>
+                                <select
+                                    id="ubicacio"
+                                    name="ubicacio"
+                                    value={formData.ubicacio}
+                                    onChange={handleChange}
+                                >
+                                    {UBICACIONS.map((u) => (
+                                        <option key={u.label} value={u.valor}>
+                                            {u.label}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+                        )}
+
                         <div className="form-group">
-                            <label htmlFor="ordre">Ordre</label>
+                            <label htmlFor="ordre">Orden</label>
                             <input
                                 type="number"
                                 id="ordre"
@@ -148,13 +181,13 @@ const PlantaModal = ({ planta, onClose }) => {
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="descripcio">Descripció</label>
+                        <label htmlFor="descripcio">Descripción</label>
                         <textarea
                             id="descripcio"
                             name="descripcio"
                             value={formData.descripcio}
                             onChange={handleChange}
-                            placeholder="Descripció de la planta..."
+                            placeholder="Descripción de la planta..."
                             rows="4"
                         />
                     </div>
@@ -168,7 +201,7 @@ const PlantaModal = ({ planta, onClose }) => {
                             onChange={handleImageChange}
                         />
                         {planta?.imatgePortada && !imatgePortada && (
-                            <small>Imatge actual assignada</small>
+                            <small>Imagen actual asignada</small>
                         )}
                     </div>
 
@@ -179,10 +212,10 @@ const PlantaModal = ({ planta, onClose }) => {
                             className="btn-cancel"
                             disabled={loading}
                         >
-                            Cancel·lar
+                            Cancelar
                         </button>
                         <button type="submit" className="btn-submit" disabled={loading}>
-                            {loading ? 'Guardant...' : 'Guardar'}
+                            {loading ? 'Guardando...' : 'Guardar'}
                         </button>
                     </div>
                 </form>
