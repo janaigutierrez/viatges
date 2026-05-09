@@ -1,14 +1,13 @@
 import { useState, useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { getPlantes, deletePlanta } from '../services/api';
-import PlantaCard from '../components/public/PlantaCard';
-import PlantaModal from '../components/admin/PlantaModal';
+import { getFamilies, deleteFamilia } from '../services/api';
+import FamiliaCard from '../components/public/FamiliaCard';
+import FamiliaModal from '../components/admin/FamiliaModal';
 import SeccioDescripcio from '../components/public/SeccioDescripcio';
 import toast from 'react-hot-toast';
 import './Plantes.css';
 
-// Categories principals
 const CATEGORIES = [
     { valor: null, label: 'Todas' },
     { valor: 'planta', label: 'Plantas' },
@@ -24,86 +23,81 @@ const UBICACIONS = [
 
 const Plantes = () => {
     const { isAuthenticated } = useAuth();
-    const [plantes, setPlantes] = useState([]);
+    const [families, setFamilies] = useState([]);
     const [loading, setLoading] = useState(true);
     const [showModal, setShowModal] = useState(false);
-    const [selectedPlanta, setSelectedPlanta] = useState(null);
+    const [selectedFamilia, setSelectedFamilia] = useState(null);
     const [filtreEtiqueta, setFiltreEtiqueta] = useState(null);
     const [filtreUbicacio, setFiltreUbicacio] = useState(null);
     const [cercaText, setCercaText] = useState('');
 
     useEffect(() => {
-        fetchPlantes();
+        fetchFamilies();
     }, []);
 
-    const fetchPlantes = async () => {
+    const fetchFamilies = async () => {
         try {
-            const response = await getPlantes();
-            setPlantes(response.data);
+            const response = await getFamilies();
+            setFamilies(response.data);
         } catch (error) {
-            toast.error('Error al cargar las plantas');
-            console.error(error);
+            toast.error('Error al cargar las familias');
         } finally {
             setLoading(false);
         }
     };
 
-    const plantesFiltrades = useMemo(() => {
-        let result = plantes;
+    const familiesFiltrades = useMemo(() => {
+        let result = families;
 
         if (filtreEtiqueta) {
-            result = result.filter((p) => p.etiqueta === filtreEtiqueta);
+            result = result.filter((f) => f.etiqueta === filtreEtiqueta);
         }
 
-        // Sub-filtre ubicació només té sentit per "planta" (interior/exterior)
         if (filtreEtiqueta === 'planta' && filtreUbicacio) {
-            result = result.filter((p) => p.ubicacio === filtreUbicacio);
+            result = result.filter((f) => f.ubicacio === filtreUbicacio);
         }
 
         if (cercaText.trim()) {
             const cerca = cercaText.toLowerCase().trim();
             result = result.filter(
-                (p) =>
-                    p.nom.toLowerCase().includes(cerca) ||
-                    (p.nomLlati && p.nomLlati.toLowerCase().includes(cerca)) ||
-                    (p.descripcio && p.descripcio.toLowerCase().includes(cerca))
+                (f) =>
+                    f.nom.toLowerCase().includes(cerca) ||
+                    (f.descripcio && f.descripcio.toLowerCase().includes(cerca))
             );
         }
 
         return result;
-    }, [plantes, filtreEtiqueta, filtreUbicacio, cercaText]);
+    }, [families, filtreEtiqueta, filtreUbicacio, cercaText]);
 
     const handleCreate = () => {
-        setSelectedPlanta(null);
+        setSelectedFamilia(null);
         setShowModal(true);
     };
 
-    const handleEdit = (planta) => {
-        setSelectedPlanta(planta);
+    const handleEdit = (familia) => {
+        setSelectedFamilia(familia);
         setShowModal(true);
     };
 
-    const handleDelete = async (planta) => {
-        if (!window.confirm(`¿Seguro que quieres eliminar "${planta.nom}"?`)) return;
+    const handleDelete = async (familia) => {
+        if (!window.confirm(`¿Seguro que quieres eliminar la familia "${familia.nom}"?`)) return;
         try {
-            await deletePlanta(planta.id);
-            toast.success('Planta eliminada correctamente');
-            fetchPlantes();
+            await deleteFamilia(familia.id);
+            toast.success('Familia eliminada correctamente');
+            fetchFamilies();
         } catch (error) {
-            const message = error.response?.data?.error || 'Error al eliminar la planta';
-            toast.error(message);
+            toast.error(error.response?.data?.error || 'Error al eliminar la familia');
         }
     };
 
     const handleModalClose = (refresh) => {
         setShowModal(false);
-        setSelectedPlanta(null);
-        if (refresh) fetchPlantes();
+        setSelectedFamilia(null);
+        if (refresh) fetchFamilies();
     };
 
     const handleCategoria = (valor) => {
         setFiltreEtiqueta(valor);
-        // Reset sub-filtre si no estem a "planta"
         if (valor !== 'planta') setFiltreUbicacio(null);
     };
 
@@ -130,14 +124,14 @@ const Plantes = () => {
                 />
 
                 <div className="plantes-content-header">
-                    <h2>Colección</h2>
+                    <h2>Familias</h2>
                     <div className="plantes-content-actions">
                         <Link to="/plantes/horticultura" className="btn-horticultura">
                             📔 Horticultura
                         </Link>
                         {isAuthenticated && (
                             <button onClick={handleCreate} className="btn-create">
-                                + Añadir planta
+                                + Añadir familia
                             </button>
                         )}
                     </div>
@@ -158,7 +152,7 @@ const Plantes = () => {
                     <div className="plantes-search">
                         <input
                             type="text"
-                            placeholder="Buscar planta..."
+                            placeholder="Buscar familia..."
                             value={cercaText}
                             onChange={(e) => setCercaText(e.target.value)}
                             className="search-input"
@@ -166,7 +160,6 @@ const Plantes = () => {
                     </div>
                 </div>
 
-                {/* Sub-filtre interior/exterior només quan l'usuari ha triat "Plantas" */}
                 {filtreEtiqueta === 'planta' && (
                     <div className="plantes-subfilters">
                         <span className="subfilter-label">Ubicación:</span>
@@ -182,20 +175,20 @@ const Plantes = () => {
                     </div>
                 )}
 
-                {plantesFiltrades.length === 0 ? (
+                {familiesFiltrades.length === 0 ? (
                     <div className="empty-state">
                         <p>
-                            {plantes.length === 0
-                                ? `Aún no hay plantas.${isAuthenticated ? ' ¡Añade la primera!' : ''}`
-                                : 'Ninguna planta coincide con los filtros.'}
+                            {families.length === 0
+                                ? `Aún no hay familias.${isAuthenticated ? ' ¡Crea la primera!' : ''}`
+                                : 'Ninguna familia coincide con los filtros.'}
                         </p>
                     </div>
                 ) : (
                     <div className="plantes-grid">
-                        {plantesFiltrades.map((planta) => (
-                            <PlantaCard
-                                key={planta.id}
-                                planta={planta}
+                        {familiesFiltrades.map((familia) => (
+                            <FamiliaCard
+                                key={familia.id}
+                                familia={familia}
                                 onEdit={handleEdit}
                                 onDelete={handleDelete}
                             />
@@ -205,8 +198,8 @@ const Plantes = () => {
             </div>
 
             {showModal && (
-                <PlantaModal
-                    planta={selectedPlanta}
+                <FamiliaModal
+                    familia={selectedFamilia}
                     onClose={handleModalClose}
                 />
             )}

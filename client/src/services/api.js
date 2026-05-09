@@ -100,11 +100,31 @@ export const deleteImatgeGaleriaPunt = (id, imatgeUrl) => {
 };
 export const deletePuntInteres = (id) => api.delete(`/punts/${id}`);
 
-// PLANTES
-export const getPlantes = (filters = {}) => {
+// FAMILIES
+export const getFamilies = (filters = {}) => {
     const params = new URLSearchParams();
     if (filters.etiqueta) params.append('etiqueta', filters.etiqueta);
     if (filters.ubicacio) params.append('ubicacio', filters.ubicacio);
+    const qs = params.toString();
+    return api.get(qs ? `/families?${qs}` : '/families');
+};
+export const getFamiliaBySlug = (slug) => api.get(`/families/${slug}`);
+export const createFamilia = (formData) => {
+    return api.post('/families', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+    });
+};
+export const updateFamilia = (id, formData) => {
+    return api.put(`/families/${id}`, formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+    });
+};
+export const deleteFamilia = (id) => api.delete(`/families/${id}`);
+
+// PLANTES
+export const getPlantes = (filters = {}) => {
+    const params = new URLSearchParams();
+    if (filters.familia) params.append('familia', filters.familia);
     const qs = params.toString();
     return api.get(qs ? `/plantes?${qs}` : '/plantes');
 };

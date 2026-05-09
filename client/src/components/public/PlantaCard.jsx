@@ -2,23 +2,6 @@ import { useAuth } from '../../context/AuthContext';
 import { getImageUrl } from '../../utils/imageUrl';
 import './PlantaCard.css';
 
-const ETIQUETA_COLORS = {
-    planta: '#48734c',
-    'crases-suculentes': '#f59e0b',
-    cactus: '#ef4444',
-};
-
-const ETIQUETA_LABELS = {
-    planta: 'Planta',
-    'crases-suculentes': 'Crasa/Suculenta',
-    cactus: 'Cactus',
-};
-
-const UBICACIO_LABELS = {
-    interior: 'Interior',
-    exterior: 'Exterior',
-};
-
 const PlantaCard = ({ planta, onEdit, onDelete }) => {
     const { isAuthenticated } = useAuth();
 
@@ -26,17 +9,6 @@ const PlantaCard = ({ planta, onEdit, onDelete }) => {
         <div className="planta-card">
             <div className="planta-card-image">
                 <img src={getImageUrl(planta.imatgePortada)} alt={planta.nom} />
-                <span
-                    className="planta-card-tag"
-                    style={{ background: ETIQUETA_COLORS[planta.etiqueta] || '#48734c' }}
-                >
-                    {ETIQUETA_LABELS[planta.etiqueta] || planta.etiqueta}
-                </span>
-                {planta.etiqueta === 'planta' && planta.ubicacio && (
-                    <span className="planta-card-ubicacio">
-                        {UBICACIO_LABELS[planta.ubicacio]}
-                    </span>
-                )}
             </div>
             <div className="planta-card-content">
                 <h3>{planta.nom}</h3>

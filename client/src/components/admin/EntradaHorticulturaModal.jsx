@@ -32,9 +32,26 @@ const EntradaHorticulturaModal = ({ entrada, onClose }) => {
         }
     }, [entrada]);
 
+    const slugify = (str) =>
+        (str || '')
+            .toLowerCase()
+            .normalize('NFD')
+            .replace(/[̀-ͯ]/g, '')
+            .replace(/[^a-z0-9\s-]/g, '')
+            .trim()
+            .replace(/\s+/g, '-')
+            .substring(0, 80);
+
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormData((prev) => ({ ...prev, [name]: value }));
+        setFormData((prev) => {
+            const next = { ...prev, [name]: value };
+            // Si està creant entrada nova, auto-genera slug a partir del títol
+            if (name === 'titol' && !entrada) {
+                next.slug = slugify(value);
+            }
+            return next;
+        });
     };
 
     const handleImageChange = (e) => {
@@ -46,8 +63,15 @@ const EntradaHorticulturaModal = ({ entrada, onClose }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (!formData.titol || !formData.slug) {
-            toast.error('Título y slug son obligatorios');
+        if (!formData.titol) {
+            toast.error('El título es obligatorio');
+            return;
+        }
+
+        // Slug final: el del form si existeix, si no derivat del títol
+        const finalSlug = slugify(formData.slug || formData.titol);
+        if (!finalSlug) {
+            toast.error('El título debe contener letras o números');
             return;
         }
 
@@ -56,7 +80,7 @@ const EntradaHorticulturaModal = ({ entrada, onClose }) => {
         try {
             const data = new FormData();
             data.append('titol', formData.titol);
-            data.append('slug', formData.slug);
+            data.append('slug', finalSlug);
             data.append('data', formData.data);
             data.append('descripcio', formData.descripcio);
             data.append('cos', formData.cos);
@@ -115,20 +139,6 @@ const EntradaHorticulturaModal = ({ entrada, onClose }) => {
                                 required
                             />
                         </div>
-                    </div>
-
-                    <div className="form-group">
-                        <label htmlFor="slug">Slug * (URL amigable)</label>
-                        <input
-                            type="text"
-                            id="slug"
-                            name="slug"
-                            value={formData.slug}
-                            onChange={handleChange}
-                            placeholder="plantacion-tomates-2026"
-                            required
-                        />
-                        <small>Solo letras, números y guiones. Ejemplo: "plantacion-tomates-2026"</small>
                     </div>
 
                     <div className="form-group">

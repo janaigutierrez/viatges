@@ -3,25 +3,11 @@ import { createPlanta, updatePlanta } from '../../services/api';
 import toast from 'react-hot-toast';
 import './Modal.css';
 
-const ETIQUETES = [
-    { valor: 'planta', label: 'Planta' },
-    { valor: 'crases-suculentes', label: 'Crasa o suculenta' },
-    { valor: 'cactus', label: 'Cactus' },
-];
-
-const UBICACIONS = [
-    { valor: '', label: '— Sin especificar —' },
-    { valor: 'interior', label: 'Interior' },
-    { valor: 'exterior', label: 'Exterior' },
-];
-
-const PlantaModal = ({ planta, onClose }) => {
+const PlantaModal = ({ planta, familiaId, onClose }) => {
     const [formData, setFormData] = useState({
         nom: '',
         nomLlati: '',
         descripcio: '',
-        etiqueta: 'planta',
-        ubicacio: '',
         ordre: 0,
     });
     const [imatgePortada, setImatgePortada] = useState(null);
@@ -33,8 +19,6 @@ const PlantaModal = ({ planta, onClose }) => {
                 nom: planta.nom,
                 nomLlati: planta.nomLlati || '',
                 descripcio: planta.descripcio || '',
-                etiqueta: planta.etiqueta || 'planta',
-                ubicacio: planta.ubicacio || '',
                 ordre: planta.ordre || 0,
             });
         }
@@ -42,10 +26,7 @@ const PlantaModal = ({ planta, onClose }) => {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormData((prev) => ({
-            ...prev,
-            [name]: value,
-        }));
+        setFormData((prev) => ({ ...prev, [name]: value }));
     };
 
     const handleImageChange = (e) => {
@@ -69,9 +50,12 @@ const PlantaModal = ({ planta, onClose }) => {
             data.append('nom', formData.nom);
             data.append('nomLlati', formData.nomLlati);
             data.append('descripcio', formData.descripcio);
-            data.append('etiqueta', formData.etiqueta);
-            data.append('ubicacio', formData.ubicacio);
             data.append('ordre', formData.ordre);
+
+            // Família: en crear ve com a prop, en editar es manté la mateixa
+            if (!planta && familiaId) {
+                data.append('familia', familiaId);
+            }
 
             if (imatgePortada) {
                 data.append('imatgePortada', imatgePortada);
@@ -93,8 +77,6 @@ const PlantaModal = ({ planta, onClose }) => {
             setLoading(false);
         }
     };
-
-    const showUbicacio = formData.etiqueta === 'planta';
 
     return (
         <div className="modal-overlay" onClick={() => onClose(false)}>
@@ -132,52 +114,16 @@ const PlantaModal = ({ planta, onClose }) => {
                         />
                     </div>
 
-                    <div className="form-row">
-                        <div className="form-group">
-                            <label htmlFor="etiqueta">Categoría *</label>
-                            <select
-                                id="etiqueta"
-                                name="etiqueta"
-                                value={formData.etiqueta}
-                                onChange={handleChange}
-                            >
-                                {ETIQUETES.map((et) => (
-                                    <option key={et.valor} value={et.valor}>
-                                        {et.label}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
-
-                        {showUbicacio && (
-                            <div className="form-group">
-                                <label htmlFor="ubicacio">Ubicación</label>
-                                <select
-                                    id="ubicacio"
-                                    name="ubicacio"
-                                    value={formData.ubicacio}
-                                    onChange={handleChange}
-                                >
-                                    {UBICACIONS.map((u) => (
-                                        <option key={u.label} value={u.valor}>
-                                            {u.label}
-                                        </option>
-                                    ))}
-                                </select>
-                            </div>
-                        )}
-
-                        <div className="form-group">
-                            <label htmlFor="ordre">Orden</label>
-                            <input
-                                type="number"
-                                id="ordre"
-                                name="ordre"
-                                value={formData.ordre}
-                                onChange={handleChange}
-                                min="0"
-                            />
-                        </div>
+                    <div className="form-group">
+                        <label htmlFor="ordre">Orden</label>
+                        <input
+                            type="number"
+                            id="ordre"
+                            name="ordre"
+                            value={formData.ordre}
+                            onChange={handleChange}
+                            min="0"
+                        />
                     </div>
 
                     <div className="form-group">

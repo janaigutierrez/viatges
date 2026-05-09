@@ -1,8 +1,8 @@
 const Planta = require('../models/Planta');
+const Familia = require('../models/Familia');
 const cloudinary = require('../config/cloudinary');
 const { uploadToCloudinary } = require('../middleware/upload');
 
-// Funció helper per extreure public_id de la URL de Cloudinary
 const getPublicIdFromUrl = (url) => {
     const parts = url.split('/');
     const filename = parts[parts.length - 1];
@@ -11,15 +11,16 @@ const getPublicIdFromUrl = (url) => {
     return `${folder}/${publicId}`;
 };
 
-// @desc    Obtenir totes les plantes (amb filtres opcionals: etiqueta, ubicacio)
+// @desc    Obtenir totes les plantes (amb filtre per família opcional)
 // @route   GET /api/plantes
 // @access  Public
 const getPlantes = async (req, res, next) => {
     try {
         const filter = {};
-        if (req.query.etiqueta) filter.etiqueta = req.query.etiqueta;
-        if (req.query.ubicacio) filter.ubicacio = req.query.ubicacio;
-        const plantes = await Planta.find(filter).sort({ ordre: 1, createdAt: -1 });
+        if (req.query.familia) filter.familia = req.query.familia;
+        const plantes = await Planta.find(filter)
+            .populate('familia', 'nom slug etiqueta ubicacio')
+            .sort({ ordre: 1, createdAt: -1 });
         res.json(plantes);
     } catch (error) {
         next(error);
@@ -31,12 +32,11 @@ const getPlantes = async (req, res, next) => {
 // @access  Public
 const getPlantaById = async (req, res, next) => {
     try {
-        const planta = await Planta.findById(req.params.id);
+        const planta = await Planta.findById(req.params.id)
+            .populate('familia', 'nom slug etiqueta ubicacio');
 
         if (!planta) {
-            return res.status(404).json({
-                error: 'Planta no trobada'
-            });
+            return res.status(404).json({ error: 'Planta no encontrada' });
         }
 
         res.json(planta);
@@ -50,12 +50,18 @@ const getPlantaById = async (req, res, next) => {
 // @access  Private (Admin)
 const createPlanta = async (req, res, next) => {
     try {
-        const { nom, nomLlati, descripcio, etiqueta, ubicacio, ordre } = req.body;
+        const { nom, nomLlati, descripcio, familia, ordre } = req.body;
 
         if (!nom) {
-            return res.status(400).json({
-                error: 'El nom és obligatori'
-            });
+            return res.status(400).json({ error: 'El nombre es obligatorio' });
+        }
+        if (!familia) {
+            return res.status(400).json({ error: 'La familia es obligatoria' });
+        }
+
+        const familiaExists = await Familia.findById(familia);
+        if (!familiaExists) {
+            return res.status(404).json({ error: 'Familia no encontrada' });
         }
 
         const imatgePortada = req.file ? await uploadToCloudinary(req.file) : null;
@@ -64,11 +70,12 @@ const createPlanta = async (req, res, next) => {
             nom,
             nomLlati: nomLlati || '',
             descripcio: descripcio || '',
-            etiqueta: etiqueta || 'planta',
-            ubicacio: ubicacio || null,
+            familia,
             imatgePortada,
             ordre: ordre || 0
         });
+
+        await planta.populate('familia', 'nom slug etiqueta ubicacio');
 
         res.status(201).json(planta);
     } catch (error) {
@@ -81,17 +88,13 @@ const createPlanta = async (req, res, next) => {
 // @access  Private (Admin)
 const updatePlanta = async (req, res, next) => {
     try {
-        const { nom, nomLlati, descripcio, etiqueta, ubicacio, ordre } = req.body;
+        const { nom, nomLlati, descripcio, familia, ordre } = req.body;
 
         const planta = await Planta.findById(req.params.id);
-
         if (!planta) {
-            return res.status(404).json({
-                error: 'Planta no trobada'
-            });
+            return res.status(404).json({ error: 'Planta no encontrada' });
         }
 
-        // Si hi ha nova imatge, eliminar l'anterior de Cloudinary
         if (req.file && planta.imatgePortada) {
             await cloudinary.uploader.destroy(getPublicIdFromUrl(planta.imatgePortada)).catch(() => {});
         }
@@ -99,8 +102,7 @@ const updatePlanta = async (req, res, next) => {
         planta.nom = nom || planta.nom;
         planta.nomLlati = nomLlati !== undefined ? nomLlati : planta.nomLlati;
         planta.descripcio = descripcio !== undefined ? descripcio : planta.descripcio;
-        planta.etiqueta = etiqueta || planta.etiqueta;
-        planta.ubicacio = ubicacio !== undefined ? (ubicacio || null) : planta.ubicacio;
+        planta.familia = familia || planta.familia;
         planta.ordre = ordre !== undefined ? ordre : planta.ordre;
 
         if (req.file) {
@@ -108,6 +110,7 @@ const updatePlanta = async (req, res, next) => {
         }
 
         await planta.save();
+        await planta.populate('familia', 'nom slug etiqueta ubicacio');
 
         res.json(planta);
     } catch (error) {
@@ -121,23 +124,16 @@ const updatePlanta = async (req, res, next) => {
 const deletePlanta = async (req, res, next) => {
     try {
         const planta = await Planta.findById(req.params.id);
-
         if (!planta) {
-            return res.status(404).json({
-                error: 'Planta no trobada'
-            });
+            return res.status(404).json({ error: 'Planta no encontrada' });
         }
 
-        // Eliminar imatge de Cloudinary si existeix
         if (planta.imatgePortada) {
             await cloudinary.uploader.destroy(getPublicIdFromUrl(planta.imatgePortada)).catch(() => {});
         }
 
         await planta.deleteOne();
-
-        res.json({
-            message: 'Planta eliminada correctament'
-        });
+        res.json({ message: 'Planta eliminada correctamente' });
     } catch (error) {
         next(error);
     }

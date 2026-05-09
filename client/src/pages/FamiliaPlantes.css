@@ -1,0 +1,203 @@
+.familia-page {
+    min-height: 100vh;
+    background: var(--bg-page);
+}
+
+.familia-hero {
+    height: 320px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+.familia-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.7));
+    display: flex;
+    align-items: flex-end;
+    padding: 40px 20px;
+}
+
+.familia-hero-content {
+    max-width: 1000px;
+    margin: 0 auto;
+    width: 100%;
+    color: white;
+}
+
+.familia-hero-content .breadcrumb {
+    display: inline-block;
+    color: rgba(255, 255, 255, 0.85);
+    text-decoration: none;
+    margin-bottom: 18px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.familia-hero-content .breadcrumb:hover {
+    color: white;
+}
+
+.familia-hero-tag {
+    display: inline-block;
+    padding: 4px 12px;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 16px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    margin-bottom: 12px;
+    backdrop-filter: blur(4px);
+}
+
+.familia-hero h1 {
+    margin: 0 0 10px;
+    font-size: 42px;
+    font-weight: 800;
+    line-height: 1.15;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+}
+
+.familia-hero-desc {
+    margin: 0;
+    font-size: 16px;
+    opacity: 0.9;
+    max-width: 700px;
+}
+
+.familia-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 30px 20px 80px;
+}
+
+.familia-admin-bar {
+    margin-bottom: 20px;
+    text-align: right;
+}
+
+.btn-edit-familia {
+    padding: 8px 18px;
+    background: transparent;
+    color: #48734c;
+    border: 2px solid #48734c;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-edit-familia:hover {
+    background: #48734c;
+    color: white;
+}
+
+.familia-content-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.familia-content-header h2 {
+    margin: 0;
+    font-size: 26px;
+    color: var(--text-primary);
+}
+
+.familia-content-header .btn-create {
+    padding: 12px 24px;
+    background: #48734c;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.familia-content-header .btn-create:hover {
+    background: #3a5f3e;
+    transform: translateY(-2px);
+}
+
+.familia-toolbar {
+    margin-bottom: 30px;
+}
+
+.familia-toolbar .search-input {
+    width: 100%;
+    max-width: 400px;
+    padding: 10px 16px;
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    font-size: 14px;
+    background: var(--bg-card);
+    color: var(--text-primary);
+    transition: border-color 0.3s;
+    box-sizing: border-box;
+}
+
+.familia-toolbar .search-input:focus {
+    outline: none;
+    border-color: #48734c;
+}
+
+.plantes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--text-secondary);
+    font-size: 18px;
+}
+
+.error-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 60vh;
+    gap: 20px;
+}
+
+.btn-back {
+    padding: 10px 20px;
+    background: #48734c;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+.btn-back:hover {
+    background: #3a5f3e;
+}
+
+@media (max-width: 768px) {
+    .familia-hero {
+        height: 240px;
+    }
+
+    .familia-hero h1 {
+        font-size: 30px;
+    }
+
+    .familia-content-header {
+        flex-direction: column;
+        gap: 15px;
+        align-items: flex-start;
+    }
+
+    .plantes-grid {
+        grid-template-columns: 1fr;
+    }
+}

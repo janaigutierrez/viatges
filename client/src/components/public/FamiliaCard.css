@@ -1,0 +1,127 @@
+.familia-card {
+    background: var(--bg-card);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px var(--shadow-sm);
+    transition: transform 0.3s, box-shadow 0.3s, background 0.2s;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.familia-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px var(--shadow-md);
+}
+
+.familia-card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    flex: 1;
+}
+
+.familia-card-image {
+    width: 100%;
+    height: 220px;
+    overflow: hidden;
+    background: var(--image-placeholder);
+    position: relative;
+}
+
+.familia-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s;
+}
+
+.familia-card:hover .familia-card-image img {
+    transform: scale(1.05);
+}
+
+.familia-card-tag {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    color: white;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+}
+
+.familia-card-ubicacio {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    background: rgba(0, 0, 0, 0.55);
+    color: white;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    backdrop-filter: blur(4px);
+}
+
+.familia-card-content {
+    padding: 20px;
+}
+
+.familia-card-content h3 {
+    margin: 0 0 6px;
+    font-size: 20px;
+    color: var(--text-primary);
+    font-weight: 700;
+}
+
+.familia-card-desc {
+    margin: 0;
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.familia-card-actions {
+    display: flex;
+    gap: 10px;
+    padding: 15px;
+    background: var(--bg-card-alt);
+    border-top: 1px solid var(--border);
+}
+
+.familia-card-actions .btn-edit,
+.familia-card-actions .btn-delete {
+    flex: 1;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.familia-card-actions .btn-edit {
+    background: #48734c;
+    color: white;
+}
+
+.familia-card-actions .btn-edit:hover {
+    background: #3a5f3e;
+}
+
+.familia-card-actions .btn-delete {
+    background: #f56565;
+    color: white;
+}
+
+.familia-card-actions .btn-delete:hover {
+    background: #e53e3e;
+}

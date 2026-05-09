@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const plantaSchema = new mongoose.Schema({
     nom: {
         type: String,
-        required: [true, 'El nom de la planta és obligatori'],
+        required: [true, 'El nombre de la planta es obligatorio'],
         trim: true
     },
     nomLlati: {
@@ -15,16 +15,10 @@ const plantaSchema = new mongoose.Schema({
         type: String,
         default: ''
     },
-    etiqueta: {
-        type: String,
-        required: [true, "L'etiqueta és obligatòria"],
-        enum: ['planta', 'crases-suculentes', 'cactus'],
-        default: 'planta'
-    },
-    ubicacio: {
-        type: String,
-        enum: ['interior', 'exterior', null],
-        default: null
+    familia: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Familia',
+        required: [true, 'La familia es obligatoria']
     },
     imatgePortada: {
         type: String,
@@ -38,8 +32,7 @@ const plantaSchema = new mongoose.Schema({
     timestamps: true
 });
 
-plantaSchema.index({ etiqueta: 1 });
-plantaSchema.index({ ubicacio: 1 });
+plantaSchema.index({ familia: 1 });
 
 plantaSchema.set('toJSON', {
     virtuals: true,
