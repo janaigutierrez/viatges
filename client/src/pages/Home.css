@@ -51,6 +51,15 @@
     text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
 }
 
+.home-hero-logo {
+    display: block;
+    max-width: 100%;
+    width: 520px;
+    height: auto;
+    margin: 0 auto 16px;
+    filter: drop-shadow(0 4px 20px rgba(0, 0, 0, 0.4));
+}
+
 .home-hero-content p {
     margin: 0;
     font-size: 18px;
@@ -188,6 +197,10 @@
 
     .home-hero-content h1 {
         font-size: 36px;
+    }
+
+    .home-hero-logo {
+        width: 320px;
     }
 
     .home-hero-content p {

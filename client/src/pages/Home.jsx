@@ -9,7 +9,11 @@ const Home = () => {
             <div className="home-hero">
                 <div className="home-hero-texture"></div>
                 <div className="home-hero-content">
-                    <h1>Desastre de cajón</h1>
+                    <img
+                        src="/logo_cajon.png"
+                        alt="Desastre de cajón"
+                        className="home-hero-logo"
+                    />
                     <p>Un cajón desordenado de viajes, plantas, recetas y experimentos</p>
                 </div>
             </div>
