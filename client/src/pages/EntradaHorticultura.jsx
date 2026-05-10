@@ -180,10 +180,10 @@ const EntradaHorticulturaPage = () => {
                 </div>
             </div>
 
-            {lightboxIndex !== null && (
+            {lightboxIndex !== null && entrada.galeriaImatges.length > 0 && (
                 <Lightbox
-                    images={entrada.galeriaImatges}
-                    currentIndex={lightboxIndex}
+                    imatges={entrada.galeriaImatges}
+                    indexActiu={lightboxIndex}
                     onClose={() => setLightboxIndex(null)}
                     onNext={() => setLightboxIndex((i) => (i + 1) % entrada.galeriaImatges.length)}
                     onPrev={() =>
