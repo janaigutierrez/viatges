@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useLayoutEffect } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { getSeccioInfo, updateSeccioInfo } from '../../services/api';
 import toast from 'react-hot-toast';
@@ -11,6 +11,9 @@ const SeccioDescripcio = ({ slug, placeholder, accentColor = '#4a4a4a' }) => {
     const [draft, setDraft] = useState('');
     const [saving, setSaving] = useState(false);
     const [loaded, setLoaded] = useState(false);
+    const [expanded, setExpanded] = useState(false);
+    const [showToggle, setShowToggle] = useState(false);
+    const textRef = useRef(null);
 
     useEffect(() => {
         let cancelled = false;
@@ -25,6 +28,14 @@ const SeccioDescripcio = ({ slug, placeholder, accentColor = '#4a4a4a' }) => {
             });
         return () => { cancelled = true; };
     }, [slug]);
+
+    // Detecta si el text supera el clamp (cal mostrar "Ver más")
+    useLayoutEffect(() => {
+        if (textRef.current && descripcio && !expanded) {
+            const el = textRef.current;
+            setShowToggle(el.scrollHeight > el.clientHeight + 1);
+        }
+    }, [descripcio, expanded, loaded]);
 
     const handleEdit = () => {
         setDraft(descripcio);
@@ -42,6 +53,7 @@ const SeccioDescripcio = ({ slug, placeholder, accentColor = '#4a4a4a' }) => {
             const res = await updateSeccioInfo(slug, draft);
             setDescripcio(res.data.descripcio || '');
             setEditing(false);
+            setExpanded(false);
             toast.success('Descripción guardada');
         } catch (error) {
             toast.error('Error al guardar la descripción');
@@ -88,7 +100,25 @@ const SeccioDescripcio = ({ slug, placeholder, accentColor = '#4a4a4a' }) => {
     return (
         <div className="seccio-descripcio">
             {descripcio ? (
-                <p className="seccio-descripcio-text">{descripcio}</p>
+                <>
+                    <p
+                        ref={textRef}
+                        className={`seccio-descripcio-text ${
+                            expanded ? '' : 'seccio-descripcio-text--clamped'
+                        }`}
+                    >
+                        {descripcio}
+                    </p>
+                    {showToggle && (
+                        <button
+                            onClick={() => setExpanded((v) => !v)}
+                            className="btn-toggle-descripcio"
+                            style={{ color: accentColor }}
+                        >
+                            {expanded ? 'Ver menos ▲' : 'Ver más ▼'}
+                        </button>
+                    )}
+                </>
             ) : (
                 <p className="seccio-descripcio-placeholder">
                     {placeholder || 'Sin descripción todavía.'}

@@ -12,6 +12,28 @@
     white-space: pre-wrap;
 }
 
+.seccio-descripcio-text--clamped {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.btn-toggle-descripcio {
+    margin-top: 8px;
+    padding: 4px 0;
+    background: transparent;
+    border: none;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.btn-toggle-descripcio:hover {
+    opacity: 0.7;
+}
+
 .seccio-descripcio-placeholder {
     margin: 0;
     font-size: 14px;
