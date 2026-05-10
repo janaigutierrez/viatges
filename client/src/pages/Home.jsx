@@ -8,12 +8,12 @@ const Home = () => {
         <div className="home">
             <div className="home-hero">
                 <div className="home-hero-texture"></div>
+                <img
+                    src="/logo_cajon.png"
+                    alt="Desastre de cajón"
+                    className="home-hero-logo"
+                />
                 <div className="home-hero-content">
-                    <img
-                        src="/logo_cajon.png"
-                        alt="Desastre de cajón"
-                        className="home-hero-logo"
-                    />
                     <p>Un cajón desordenado de viajes, plantas, recetas y experimentos</p>
                 </div>
             </div>
