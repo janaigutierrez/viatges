@@ -95,6 +95,50 @@
     margin-bottom: 50px;
 }
 
+.apartats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 16px;
+}
+
+.section-title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 3px solid #4f6d7a;
+}
+
+.section-title-row h3 {
+    margin: 0;
+    font-size: 22px;
+    color: var(--text-primary);
+}
+
+.btn-add-section {
+    padding: 8px 16px;
+    background: #4f6d7a;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-add-section:hover {
+    background: #3d5a66;
+}
+
+.empty-section {
+    color: var(--text-muted);
+    font-style: italic;
+    padding: 10px 0;
+    margin: 0;
+}
+
 .punt-description {
     font-size: 18px;
     line-height: 1.8;

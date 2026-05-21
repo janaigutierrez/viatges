@@ -9,6 +9,7 @@ import Viatges from './pages/Viatges';
 import Region from './pages/Region';
 import Lloc from './pages/Lloc';
 import PuntInteres from './pages/PuntInteres';
+import Apartat from './pages/Apartat';
 import Plantes from './pages/Plantes';
 import FamiliaPlantes from './pages/FamiliaPlantes';
 import Horticultura from './pages/Horticultura';
@@ -35,6 +36,7 @@ function App() {
               <Route path="/viatges/regio/:regioSlug" element={<Region />} />
               <Route path="/viatges/regio/:regioSlug/:llocSlug" element={<Lloc />} />
               <Route path="/viatges/regio/:regioSlug/:llocSlug/:puntSlug" element={<PuntInteres />} />
+              <Route path="/viatges/regio/:regioSlug/:llocSlug/:puntSlug/:apartatSlug" element={<Apartat />} />
             </Routes>
           </main>
           <Footer />

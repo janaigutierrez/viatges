@@ -4,6 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import { getRegioBySlug, getLlocs, deleteLloc } from '../services/api';
 import LlocCard from '../components/public/LlocCard';
 import LlocModal from '../components/admin/LlocModal';
+import SeccioDescripcio from '../components/public/SeccioDescripcio';
 import toast from 'react-hot-toast';
 import './Region.css';
 
@@ -102,6 +103,12 @@ const Region = () => {
             </div>
 
             <div className="region-content">
+                <SeccioDescripcio
+                    slug={`viatges-regio-${regioSlug}`}
+                    accentColor="#4f6d7a"
+                    placeholder="Añade aquí información sobre esta región..."
+                />
+
                 <div className="region-content-header">
                     <h2>Lugares para visitar</h2>
                     {isAuthenticated && (

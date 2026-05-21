@@ -5,6 +5,7 @@ import { getLlocBySlug, getPuntsInteres, deletePuntInteres, addImatgesGaleria, d
 import LlocModal from '../components/admin/LlocModal';
 import PuntInteresModal from '../components/admin/PuntInteresModal';
 import PuntInteresCard from '../components/public/PuntInteresCard';
+import SeccioDescripcio from '../components/public/SeccioDescripcio';
 import Lightbox from '../components/Lightbox';
 import { getImageUrl, getThumbnailUrl } from '../utils/imageUrl';
 import toast from 'react-hot-toast';
@@ -140,6 +141,12 @@ const Lloc = () => {
 
             {/* Contingut */}
             <div className="lloc-content">
+                <SeccioDescripcio
+                    slug={`viatges-lloc-${regioSlug}-${llocSlug}`}
+                    accentColor="#4f6d7a"
+                    placeholder="Añade aquí información sobre este lugar..."
+                />
+
                 <div className="lloc-content-header">
                     <h2>Sobre {lloc.nom}</h2>
                     {isAuthenticated && (

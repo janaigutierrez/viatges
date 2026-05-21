@@ -1,0 +1,212 @@
+.apartat-page {
+    min-height: 100vh;
+    background: var(--bg-page);
+}
+
+.apartat-hero {
+    height: 360px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+.apartat-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.7));
+    display: flex;
+    align-items: flex-end;
+    padding: 40px 20px;
+}
+
+.apartat-hero-content {
+    max-width: 1000px;
+    margin: 0 auto;
+    width: 100%;
+    color: white;
+}
+
+.apartat-breadcrumb {
+    margin-bottom: 14px;
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+.apartat-breadcrumb a {
+    color: rgba(255, 255, 255, 0.85);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.apartat-breadcrumb a:hover {
+    color: white;
+}
+
+.apartat-hero h1 {
+    margin: 0;
+    font-size: 42px;
+    font-weight: 800;
+    line-height: 1.15;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+}
+
+.apartat-content {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 40px 20px 80px;
+}
+
+.apartat-admin-bar {
+    margin-bottom: 24px;
+    text-align: right;
+}
+
+.apartat-admin-bar .btn-edit-main {
+    padding: 8px 18px;
+    background: #4f6d7a;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.apartat-admin-bar .btn-edit-main:hover {
+    background: #3d5a66;
+}
+
+.apartat-section {
+    margin-bottom: 40px;
+}
+
+.apartat-description {
+    margin: 0;
+    font-size: 17px;
+    line-height: 1.7;
+    color: var(--text-primary);
+    white-space: pre-wrap;
+}
+
+.galeria-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 3px solid #4f6d7a;
+}
+
+.galeria-header h3 {
+    margin: 0;
+    font-size: 22px;
+    color: var(--text-primary);
+}
+
+.btn-upload-galeria {
+    padding: 8px 16px;
+    background: #48bb78;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-upload-galeria:hover {
+    background: #38a169;
+}
+
+.galeria-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 14px;
+}
+
+.galeria-item {
+    aspect-ratio: 4/3;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 14px var(--shadow-sm);
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+.galeria-item:hover {
+    transform: scale(1.03);
+}
+
+.galeria-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.galeria-delete-btn {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    background: rgba(239, 68, 68, 0.85);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.galeria-item:hover .galeria-delete-btn {
+    opacity: 1;
+}
+
+.galeria-buida {
+    color: var(--text-muted);
+    font-style: italic;
+    padding: 10px 0;
+}
+
+.error-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 60vh;
+    gap: 20px;
+}
+
+.btn-back {
+    padding: 10px 20px;
+    background: #4f6d7a;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+.btn-back:hover {
+    background: #3d5a66;
+}
+
+@media (max-width: 768px) {
+    .apartat-hero {
+        height: 260px;
+    }
+
+    .apartat-hero h1 {
+        font-size: 30px;
+    }
+
+    .galeria-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

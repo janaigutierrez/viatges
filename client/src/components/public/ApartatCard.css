@@ -1,0 +1,100 @@
+.apartat-card {
+    background: var(--bg-card);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px var(--shadow-sm);
+    transition: transform 0.25s, box-shadow 0.25s, background 0.2s;
+    border: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+}
+
+.apartat-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 18px var(--shadow-md);
+}
+
+.apartat-card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    flex: 1;
+}
+
+.apartat-card-image {
+    width: 100%;
+    height: 160px;
+    overflow: hidden;
+    background: var(--image-placeholder);
+}
+
+.apartat-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s;
+}
+
+.apartat-card:hover .apartat-card-image img {
+    transform: scale(1.04);
+}
+
+.apartat-card-content {
+    padding: 14px 16px;
+}
+
+.apartat-card-content h4 {
+    margin: 0 0 4px;
+    font-size: 17px;
+    color: var(--text-primary);
+    font-weight: 700;
+}
+
+.apartat-card-desc {
+    margin: 0;
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.apartat-card-actions {
+    display: flex;
+    gap: 8px;
+    padding: 10px 14px;
+    background: var(--bg-card-alt);
+    border-top: 1px solid var(--border);
+}
+
+.apartat-card-actions .btn-edit,
+.apartat-card-actions .btn-delete {
+    flex: 1;
+    padding: 6px 10px;
+    border: none;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.apartat-card-actions .btn-edit {
+    background: #4f6d7a;
+    color: white;
+}
+
+.apartat-card-actions .btn-edit:hover {
+    background: #3d5a66;
+}
+
+.apartat-card-actions .btn-delete {
+    background: #f56565;
+    color: white;
+}
+
+.apartat-card-actions .btn-delete:hover {
+    background: #e53e3e;
+}

@@ -141,6 +141,34 @@ export const updatePlanta = (id, formData) => {
 };
 export const deletePlanta = (id) => api.delete(`/plantes/${id}`);
 
+// APARTATS (sub-nivell de Punt d'Interès)
+export const getApartats = (puntInteresId) => {
+    const url = puntInteresId ? `/apartats?puntInteres=${puntInteresId}` : '/apartats';
+    return api.get(url);
+};
+export const getApartatBySlug = (regioSlug, llocSlug, puntSlug, apartatSlug) => {
+    return api.get(`/apartats/${regioSlug}/${llocSlug}/${puntSlug}/${apartatSlug}`);
+};
+export const createApartat = (formData) => {
+    return api.post('/apartats', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+    });
+};
+export const updateApartat = (id, formData) => {
+    return api.put(`/apartats/${id}`, formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+    });
+};
+export const addImatgesGaleriaApartat = (id, formData) => {
+    return api.post(`/apartats/${id}/galeria`, formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+    });
+};
+export const deleteImatgeGaleriaApartat = (id, imatgeUrl) => {
+    return api.delete(`/apartats/${id}/galeria`, { data: { imatgeUrl } });
+};
+export const deleteApartat = (id) => api.delete(`/apartats/${id}`);
+
 // SECCIONS (descripcions editables)
 export const getSeccioInfo = (slug) => api.get(`/seccions/${slug}`);
 export const updateSeccioInfo = (slug, descripcio) => api.put(`/seccions/${slug}`, { descripcio });
